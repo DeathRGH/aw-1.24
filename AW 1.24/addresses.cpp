@@ -10,7 +10,20 @@ void Init() {
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
 
+	PlayerCmd_AllowBoostJump = (PlayerCmd_AllowBoostJump_t)0x000000000070F100;
+	PlayerCmd_AllowDodge = (PlayerCmd_AllowDodge_t)0x000000000070F180;
+	PlayerCmd_AllowHighJumpDrop = (PlayerCmd_AllowHighJumpDrop_t)0x000000000070F280;
+	PlayerCmd_AllowLadder = (PlayerCmd_AllowLadder_t)0x000000000070F300;
+	PlayerCmd_AllowMantle = (PlayerCmd_AllowMantle_t)0x000000000070F3B0;
+	PlayerCmd_AllowPowerSlide = (PlayerCmd_AllowPowerSlide_t)0x000000000070F200;
+	PlayerCmd_AllowSprint = (PlayerCmd_AllowSprint_t)0x000000000070F460;
+	PlayerCmd_ForceMantle = (PlayerCmd_ForceMantle_t)0x0000000000710740;
+	PlayerCmd_SetClientDvar = (PlayerCmd_SetClientDvar_t)0x000000000070EA60;
+	PlayerCmd_setOrigin = (PlayerCmd_setOrigin_t)0x000000000070C800;
+
+	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x0000000000A16340;
 	R_GetCommandBuffer = (R_GetCommandBuffer_t)0x0000000000A15660;
+	R_RegisterFont = (R_RegisterFont_t)0x00000000009FB230;
 
 	Scr_AddEntity = (Scr_AddEntity_t)0x00000000007662C0;
 	Scr_AddInt = (Scr_AddInt_t)0x00000000008547E0;
@@ -21,6 +34,8 @@ void Init() {
 	
 	SL_ConvertToString = (SL_ConvertToString_t)0x000000000084AF50;
 	SL_GetString = (SL_GetString_t)0x000000000084B820;
+
+	SV_GameSendServerCommand = (SV_GameSendServerCommand_t)0x000000000089CD80;
 	
 	
 	//AimTarget_GetTagPos = (AimTarget_GetTagPos_t)vHandler->addresses.addr_AimTarget_GetTagPos;

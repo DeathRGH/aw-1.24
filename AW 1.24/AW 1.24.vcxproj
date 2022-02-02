@@ -13,6 +13,7 @@
     <ClInclude Include="functions.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="hooks.h" />
+    <ClInclude Include="host.h" />
     <ClInclude Include="imports.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="library_functions.h" />
@@ -37,6 +38,7 @@
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="hooks.cpp" />
+    <ClCompile Include="host.cpp" />
     <ClCompile Include="imports.cpp" />
     <ClCompile Include="library_functions.cpp" />
     <ClCompile Include="main.cpp" />

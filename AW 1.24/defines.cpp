@@ -8,28 +8,24 @@
 
 const char *FontForIndex(int index) {
 	if (index == 0)
-		return "fonts/dev.ttf";
+		return "fonts/smalldevfont";
 	if (index == 1)
-		return "fonts/default.ttf";
+		return "fonts/bigDevFont";
 	if (index == 2)
 		return "fonts/consoleFont";
 	if (index == 3)
-		return "fonts/bigFont";
+		return "fonts/bodyFont";
 	if (index == 4)
-		return "fonts/smallFont";
+		return "fonts/bodyFontBold";
 	if (index == 5)
-		return "fonts/boldFont";
+		return "fonts/titleFont";
 	if (index == 6)
-		return "fonts/normalFont";
-	if (index == 7)
-		return "fonts/extraBigFont";
-	if (index == 8)
-		return "fonts/objectiveFont";
+		return "fonts/ammoFont";
 	else
-		return "fonts/normalFont";
+		return "fonts/titleFont";
 }
 
-const char *DisplayFontForIndex(int index) {
+const char *FontDisplayNameForIndex(int index) {
 	if (index == 0)
 		return "Small Dev Font";
 	if (index == 1)
@@ -37,19 +33,15 @@ const char *DisplayFontForIndex(int index) {
 	if (index == 2)
 		return "Console Font";
 	if (index == 3)
-		return "Big Font";
+		return "Body Font";
 	if (index == 4)
-		return "Small Font";
+		return "Body Font Bold";
 	if (index == 5)
-		return "Bold Font";
+		return "Title Font";
 	if (index == 6)
-		return "Normal Font";
-	if (index == 7)
-		return "Extra Big Font";
-	if (index == 8)
-		return "Objective Font";
+		return "Ammo Font";
 	else
-		return "Normal Font";
+		return "Title Font";
 }
 
 const char *AimbotBoneForIndex(int index) {
@@ -97,53 +89,6 @@ const char *AimbotBoneForIndex(int index) {
 		return "j_ball_ri";
 	else
 		return "j_head";
-}
-
-const char *CustomCrosshairTypeForIndex(int index) {
-	if (index == CROSSHAIRTYPE_CROSS)
-		return "Cross";
-	if (index == CROSSHAIRTYPE_PLUS)
-		return "Plus";
-	if (index == CROSSHAIRTYPE_FILLBOX)
-		return "Fill Box";
-	if (index == CROSSHAIRTYPE_BOX)
-		return "Box";
-	if (index == CROSSHAIRTYPE_CIRCLE)
-		return "Circle";
-	if (index == CROSSHAIRTYPE_SPIRAL)
-		return "Spiral";
-	if (index == CROSSHAIRTYPE_SPINNING)
-		return "Spinning";
-	else
-		return "Cross";
-}
-
-const char *ESPTargetTeamForIndex(int index) {
-	if (index == ESP_TEAM_ENEMY)
-		return "Enemy";
-	if (index == ESP_TEAM_FRIENDLY)
-		return "Friendly";
-	if (index == ESP_TEAM_BOTH)
-		return "Enemy & Friendly";
-	else
-		return "Enemy & Friendly";
-}
-
-const char *ESPTypeForIndex(int index) {
-	if (index == 0)
-		return "Off";
-	if (index == 1)
-		return "Box";
-	if (index == 2)
-		return "Fill Box";
-	if (index == 3)
-		return "Corners";
-	if (index == 4)
-		return "3D Box";
-	if (index == 5)
-		return "Pyramid";
-	else
-		return "3D Box";
 }
 
 const char *GetRawWeaponNameForIndex(int id) {

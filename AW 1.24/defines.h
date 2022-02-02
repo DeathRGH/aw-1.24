@@ -46,28 +46,9 @@ enum XAssetType_t {
 	ASSET_TYPE_TTF = 0x50
 };
 
-enum CrosshairType_t {
-	CROSSHAIRTYPE_CROSS,
-	CROSSHAIRTYPE_PLUS,
-	CROSSHAIRTYPE_FILLBOX,
-	CROSSHAIRTYPE_BOX,
-	CROSSHAIRTYPE_CIRCLE,
-	CROSSHAIRTYPE_SPIRAL,
-	CROSSHAIRTYPE_SPINNING
-};
-
-enum EspTeam_t {
-	ESP_TEAM_ENEMY,
-	ESP_TEAM_FRIENDLY,
-	ESP_TEAM_BOTH
-};
-
 const char *FontForIndex(int index);
-const char *DisplayFontForIndex(int index);
+const char *FontDisplayNameForIndex(int index);
 const char *AimbotBoneForIndex(int index);
-const char *CustomCrosshairTypeForIndex(int index);
-const char *ESPTargetTeamForIndex(int index);
-const char *ESPTypeForIndex(int index);
 
 const char *GetRawWeaponNameForIndex(int id);
 const char *GetWeaponNameForIndex(int id);

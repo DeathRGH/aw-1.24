@@ -7,7 +7,20 @@ Cbuf_AddText_t Cbuf_AddText;
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 G_GetAngles_t G_GetAngles;
 
+PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
+PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
+PlayerCmd_AllowHighJumpDrop_t PlayerCmd_AllowHighJumpDrop;
+PlayerCmd_AllowLadder_t PlayerCmd_AllowLadder;
+PlayerCmd_AllowMantle_t PlayerCmd_AllowMantle;
+PlayerCmd_AllowPowerSlide_t PlayerCmd_AllowPowerSlide;
+PlayerCmd_AllowSprint_t PlayerCmd_AllowSprint;
+PlayerCmd_ForceMantle_t PlayerCmd_ForceMantle;
+PlayerCmd_SetClientDvar_t PlayerCmd_SetClientDvar;
+PlayerCmd_setOrigin_t PlayerCmd_setOrigin;
+
+R_AddCmdDrawText_t R_AddCmdDrawText;
 R_GetCommandBuffer_t R_GetCommandBuffer;
+R_RegisterFont_t R_RegisterFont;
 
 Scr_AddEntity_t Scr_AddEntity;
 Scr_AddInt_t Scr_AddInt;
@@ -18,6 +31,9 @@ Scr_NotifyNum_t Scr_NotifyNum;
 
 SL_ConvertToString_t SL_ConvertToString;
 SL_GetString_t SL_GetString;
+
+SV_GameSendServerCommand_t SV_GameSendServerCommand;
+
 
 
 
@@ -95,10 +111,6 @@ const char *Dvar_GetString(const char *dvarName) {
 	int dvar_s = 0; //Dvar_FindVar(dvarName);
 	if (dvar_s)
 		return *(const char **)(dvar_s + 0x10);
-}
-
-int R_RegisterFont(const char *name, int imageTrack) {
-	return MENU_FONT;
 }
 
 int R_TextHeight(uint64_t font) {

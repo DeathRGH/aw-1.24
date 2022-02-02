@@ -24,6 +24,10 @@ enum LocalClientNum_t : int {
 
 //
 
+struct Font_s {
+
+};
+
 struct gentity_s {
 
 };

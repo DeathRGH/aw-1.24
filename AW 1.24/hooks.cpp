@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "functions.h"
 #include "global.h"
+#include "imports.h"
 #include "menuoptions.h"
 #include "offhost.h"
 #include "structs.h"
@@ -11,50 +12,47 @@
 
 NAMESPACE(Hooks)
 
-CL_Disconnect_t CL_Disconnect_s;
-CL_WritePacket_t CL_WritePacket_s;
-DrawClientInfo_t DrawClientInfo_s;
+CL_Disconnect_t CL_Disconnect_Stub;
 
 void CL_Disconnect_Hook(LocalClientNum_t localClientNum, bool deactivateClient) {
 	CreateThread((void *)PreventCrash, "preventCrash");
 
-	CL_Disconnect_s(localClientNum, deactivateClient);
+	CL_Disconnect_Stub(localClientNum, deactivateClient);
 }
 
-void CL_WritePacket_Hook(LocalClientNum_t localClientNum) {
-	ReadStructs();
-	//Cache::CacheAll();
-
-	//AimbotLoop();
-
-	CL_WritePacket_s(localClientNum);
+void R_EndFrame_Hook() {
+	R_AddCmdDrawText("Test Text", 0x7FFFFFFF, R_RegisterFont("fonts/titleFont", 0), 500.0f, 500.0f, 1.0f, 1.0f, 0.0f, white10, 0);
+	//reversed below
+	R_GetCommandBuffer((GfxRenderCommand)0, 4);
+	*(uint64_t *)((*(uint64_t *)(*(uint64_t *)0x000000000CA50200 + 0x546A40)) + 0x18) = 0;
+	*(uint64_t *)((*(uint64_t *)(*(uint64_t *)0x000000000CA50200 + 0x546A40)) + 0x10) = 0;
+	*(uint64_t *)((*(uint64_t *)(*(uint64_t *)0x000000000CA50200 + 0x546A40)) + 0x08) = 0;
+	*(int *)(0x000000000C9C2400 + 0xD08) = 0;
+	*(int *)0x000000000E35B2A4 = (*(int *)0x000000000E35B2A4 & 1) ^ 1;
 }
 
-void DrawClientInfo_Hook(LocalClientNum_t localClientNum) {
-	DrawClientInfo_s(localClientNum);
+void Scr_Notify_Hook(gentity_s *ent, scr_string_t stringValue, unsigned int paramcount) {
+	if (!strcmp(SL_ConvertToString(stringValue), "weapon_fired")) {
+		uartprintf("weapon_fired\n");
+		//FireMagicBullet(*(short *)ent, "iw5_juggmicrodronelauncher_mp");
 
-	if (!ShouldRun())
-		return;
+		//float newPos[3] = { 0.0f, 0.0f, 0.0f };
+		//Scr_AddVector(newPos);
+		//Scr_SetNumParam(1);
+		//PlayerCmd_setOrigin(**(short *)ent);
 
-	/*threadReturnClient = -1;
-	ReadStructs();
+		//Scr_AddInt(1);
+		//Scr_AddString("cg_fov");
+		//Scr_AddString("120");
+		//Scr_SetNumParam(3);
+		//PlayerCmd_SetClientDvar(*(short *)ent);
 
-	Cache::CacheAll();
+		//Scr_AddInt(0);
+		//Scr_SetNumParam(1);
+		//PlayerCmd_ForceMantle(*(short *)ent);
+	}
 
-	LoopSettings();
-
-	MonitorButtons();
-	
-	AimbotCalculation();
-
-	DrawCustomCrosshair();
-
-	DrawInfoBoxes();
-	DrawMenu();
-
-	DrawBuildNumber();*/
-
-	//DrawHexDump(1000.0f, 800.0f, 0x400000, 0x100, 0.4f);
+	Scr_NotifyNum(*(short *)ent, 0, stringValue, paramcount);
 }
 
 END

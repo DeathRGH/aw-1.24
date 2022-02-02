@@ -114,10 +114,7 @@ bool ShouldRun() {
 	if (executionAddress == 0)
 		return false;
 
-	if (executionID == *(int *)(executionAddress))
-		return true;
-	else
-		return false;
+	return executionID == *(int *)executionAddress;
 }
 
 void NewRunID() {

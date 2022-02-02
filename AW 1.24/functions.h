@@ -10,7 +10,20 @@ typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text)
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
 typedef void(*G_GetAngles_t)(LocalClientNum_t, short, float *);
 
+typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowDodge_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowHighJumpDrop_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowLadder_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowMantle_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowPowerSlide_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowSprint_t)(scr_entref_t);
+typedef void(*PlayerCmd_ForceMantle_t)(scr_entref_t);
+typedef void(*PlayerCmd_SetClientDvar_t)(scr_entref_t);
+typedef void(*PlayerCmd_setOrigin_t)(scr_entref_t);
+
+typedef void(*R_AddCmdDrawText_t)(const char *, int, Font_s *, float, float, float, float, float, const float *, int);
 typedef void *(*R_GetCommandBuffer_t)(GfxRenderCommand, unsigned long);
+typedef Font_s *(*R_RegisterFont_t)(const char *, int);
 
 typedef void(*Scr_AddEntity_t)(const gentity_s *);
 typedef void(*Scr_AddInt_t)(int);
@@ -22,7 +35,10 @@ typedef void(*Scr_NotifyNum_t)(int entnum, unsigned int classnum, scr_string_t s
 typedef const char *(*SL_ConvertToString_t)(scr_string_t stringValue);
 typedef scr_string_t(*SL_GetString_t)(const char *, unsigned int);
 
+typedef void(*SV_GameSendServerCommand_t)(signed char, int, const char *);
+
 //
+
 extern AngleVectors_t AngleVectors;
 
 extern Cbuf_AddText_t Cbuf_AddText;
@@ -30,7 +46,20 @@ extern Cbuf_AddText_t Cbuf_AddText;
 extern G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 extern G_GetAngles_t G_GetAngles;
 
+extern PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
+extern PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
+extern PlayerCmd_AllowHighJumpDrop_t PlayerCmd_AllowHighJumpDrop;
+extern PlayerCmd_AllowLadder_t PlayerCmd_AllowLadder;
+extern PlayerCmd_AllowMantle_t PlayerCmd_AllowMantle;
+extern PlayerCmd_AllowPowerSlide_t PlayerCmd_AllowPowerSlide;
+extern PlayerCmd_AllowSprint_t PlayerCmd_AllowSprint;
+extern PlayerCmd_ForceMantle_t PlayerCmd_ForceMantle;
+extern PlayerCmd_SetClientDvar_t PlayerCmd_SetClientDvar;
+extern PlayerCmd_setOrigin_t PlayerCmd_setOrigin;
+
+extern R_AddCmdDrawText_t R_AddCmdDrawText;
 extern R_GetCommandBuffer_t R_GetCommandBuffer;
+extern R_RegisterFont_t R_RegisterFont;
 
 extern Scr_AddEntity_t Scr_AddEntity;
 extern Scr_AddInt_t Scr_AddInt;
@@ -41,6 +70,8 @@ extern Scr_NotifyNum_t Scr_NotifyNum;
 
 extern SL_ConvertToString_t SL_ConvertToString;
 extern SL_GetString_t SL_GetString;
+
+extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
 
 
 
@@ -109,7 +140,6 @@ extern bool AimTarget_IsTargetVisible_Custom(int targetEntNum, const char *visBo
 extern bool Dvar_GetBool(const char *dvarName);
 extern const char *Dvar_GetString(const char *dvarName);
 
-extern int R_RegisterFont(const char *name, int imageTrack);
 extern int R_TextHeight(uint64_t font);
 
 void Scr_SetNumParam(int paramcount);
