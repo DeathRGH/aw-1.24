@@ -2,6 +2,7 @@
 
 #include "structs.h"
 #include "types.h"
+#include "host_huds.h"
 
 typedef void(*AngleVectors_t)(const float *, float *, float *, float *);
 
@@ -85,19 +86,6 @@ extern SL_GetString_t SL_GetString;
 
 extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef void (*AimTarget_GetTagPos_t)(uint64_t ent, unsigned short tagName, float *pos);
 typedef bool (*AimTarget_IsTargetVisible_t)(LocalClientNum_t localClientNum, uint64_t targetEnt);
 
@@ -118,6 +106,12 @@ typedef void(*UI_DrawText_t)(const ScreenPlacement *screenPlacement, const char 
 typedef void(*UI_FillRectPhysical_t)(float x, float y, float w, float h, const float *color);
 
 typedef unsigned short(*sub_E9F770_t)(const char *str, unsigned int user, unsigned int u1);
+
+// Host Huds
+typedef game_hudelem_t(*HudElem_Alloc_t)(int clientNum, int teamNum);
+typedef uint64_t(*G_MaterialIndex_t)(const char* material);
+typedef uint64_t(*G_LocalizedStringIndex_t)(const char* text);
+typedef void(*HudElem_DestroyAll_t)();
 
 //External
 extern AimTarget_GetTagPos_t AimTarget_GetTagPos;
@@ -142,6 +136,11 @@ extern UI_DrawText_t UI_DrawText;
 extern UI_FillRectPhysical_t UI_FillRectPhysical;
 
 extern sub_E9F770_t sub_E9F770;
+
+extern HudElem_Alloc_t HudElem_Alloc;
+extern G_MaterialIndex_t G_MaterialIndex;
+extern G_LocalizedStringIndex_t G_LocalizedStringIndex;
+extern HudElem_DestroyAll_t HudElem_DestroyAll;
 
 //Custom
 extern void AimTarget_GetTagPos_Custom(int entNum, const char *tagName, float *pos);

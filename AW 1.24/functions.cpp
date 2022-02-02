@@ -72,6 +72,11 @@ UI_FillRectPhysical_t UI_FillRectPhysical;
 
 sub_E9F770_t sub_E9F770;
 
+HudElem_Alloc_t HudElem_Alloc;
+G_MaterialIndex_t G_MaterialIndex;
+G_LocalizedStringIndex_t G_LocalizedStringIndex;
+HudElem_DestroyAll_t HudElem_DestroyAll;
+
 //Custom
 void AimTarget_GetTagPos_Custom(int entNum, const char *tagName, float *pos) {
 	int dobj = 0;//Com_GetClientDObj(centity[entNum].nextState.number, 0);
