@@ -1,11 +1,9 @@
 #pragma once
 
-#define Leveltime *(int*)(0x6395980 + 0x4EC)
+#define Leveltime *(int *)(0x6395980 + 0x4EC)
 
-union hudelem_color_t
-{
-    struct
-    {
+union hudelem_color_t {
+    struct {
         unsigned char r;
         unsigned char g;
         unsigned char b;
@@ -14,10 +12,9 @@ union hudelem_color_t
     int rgba;
 };
 
-struct hudelem_s
-{
-    short targetent1;
-    short targetent2;
+struct hudelem_s {
+	short targetEnt1;
+    short targetEnt2;
     int font;
     int alignOrg;
     int alignScreen;
@@ -25,18 +22,18 @@ struct hudelem_s
     float y;
     float z;
     int type;
-    float FontScale;
-    int FromFontScale;
-    int FontScaleStartTime;
-    int FontScaleTime;
+    float fontScale;
+    int fromFontScale;
+    int fontScaleStartTime;
+    int fontScaleTime;
     hudelem_color_t color;
     hudelem_color_t fromColor;
     int fadeStartTime;
     int fadeTime;
     int label;
-    int Width;
-    int Height;
-    int MaterialIndex;
+    int width;
+    int height;
+    int materialIndex;
     int fromWidth;
     int fromHeight;
     int moveStartTime;
@@ -62,30 +59,29 @@ struct hudelem_s
     int flags;
 };
 
-struct game_hudelem_s
-{
+struct game_hudelem_s {
     hudelem_s elem;
-    int ClientNum;
+    int clientNum;
     int team;
     int archived;
     int showInKillcam;
 };
 
 struct Hud {
-    Hud(game_hudelem_s* Element);
-    void setShader(const char* shader, int width, int height, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-    void setText(char* text, int font, float fontScale, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a, unsigned char glowR, unsigned char glowG, unsigned char glowB, unsigned char glowA);
-    void moveOverTime(float time, float x, float y);
-    void setY(float y);
-    void changeText(const char* text);
-    void scaleOverTime(float time, float width, float height);
-    void fadeOverTime(int time, float red, float green, float blue, float alpha);
-    void setColor(char r, char g, char b, char a, bool isGlow);
-    void typeWriterText(char* text);
-    game_hudelem_s* Element;
+    Hud(game_hudelem_s *element);
+    void SetShader(const char *shader, int width, int height, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+    void SetText(const char *text, int font, float fontScale, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a, unsigned char glowR, unsigned char glowG, unsigned char glowB, unsigned char glowA);
+    void MoveOverTime(float time, float x, float y);
+    void SetY(float y);
+    void ChangeText(const char *text);
+    void ScaleOverTime(float time, float width, float height);
+    void FadeOverTime(int time, float red, float green, float blue, float alpha);
+    void SetColor(char r, char g, char b, char a, bool isGlow);
+    void TypeWriterText(const char *text);
+    game_hudelem_s *element;
 };
 
-extern game_hudelem_s* precacheElem(int clientId);
+extern game_hudelem_s *PrecacheElem(int clientId);
 
-typedef struct hudelem_s* hudelem_t;
-typedef struct game_hudelem_s* game_hudelem_t;
+typedef struct hudelem_s *hudelem_t;
+typedef struct game_hudelem_s *game_hudelem_t;

@@ -1,113 +1,110 @@
 #include "host_huds.h"
 #include "functions.h"
 
-Hud::Hud(game_hudelem_s* elem) {
-    Element = elem;
+Hud::Hud(game_hudelem_s *elem) {
+    element = elem;
 }
 
-game_hudelem_s* precacheElem(int clientId) {
-    game_hudelem_s* elem = HudElem_Alloc(clientId, 0);
-    elem->ClientNum = clientId;
+game_hudelem_s *PrecacheElem(int clientId) {
+    game_hudelem_s *elem = HudElem_Alloc(clientId, 0);
+    elem->clientNum = clientId;
     return elem;
 }
 
-void Hud::setShader(const char* shader, int width, int height, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    Element->elem.type = 0x4;
-    Element->elem.alignOrg = alignOrg;
-    Element->elem.alignScreen = alignScreen;
-    Element->elem.x = x;
-    Element->elem.y = y;
-    Element->elem.color.r = r;
-    Element->elem.color.g = g;
-    Element->elem.color.b = b;
-    Element->elem.color.a = a;
-    Element->elem.Width = width;
-    Element->elem.Height = height;
-    Element->elem.sort = sort;
-    Element->elem.MaterialIndex = G_MaterialIndex(shader);
-}
-void Hud::setText(char* text, int font, float fontScale, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a, unsigned char glowR, unsigned char glowG, unsigned char glowB, unsigned char glowA) {
-    Element->elem.type = 1;
-    Element->elem.font = font;
-    Element->elem.FontScale = fontScale;
-    Element->elem.alignOrg = alignOrg;
-    Element->elem.alignScreen = alignScreen;
-    Element->elem.x = x;
-    Element->elem.y = y;
-    Element->elem.color.r = r;
-    Element->elem.color.g = g;
-    Element->elem.color.b = b;
-    Element->elem.color.a = a;
-    Element->elem.glowColor.r = glowR;
-    Element->elem.glowColor.g = glowG;
-    Element->elem.glowColor.b = glowB;
-    Element->elem.glowColor.a = glowA;
-    Element->elem.sort = sort;
-    Element->elem.text = G_LocalizedStringIndex(text);
-    Element->elem.targetent1 = 1;
-    Element->elem.targetent2 = 1;
-}
-void Hud::moveOverTime(float time, float x, float y)
-{
-    Element->elem.fromX = Element->elem.x;
-    Element->elem.fromY = Element->elem.y;
-    Element->elem.moveStartTime = Leveltime;
-    Element->elem.moveTime = time;
-    Element->elem.x = x;
-    Element->elem.y = y;
-}
-void Hud::setY(float y)
-{
-    Element->elem.y = y;
-}
-void Hud::changeText(const char* text)
-{
-    Element->elem.text = G_LocalizedStringIndex(text);
-}
-void Hud::scaleOverTime(float time, float width, float height) {
-
-    Element->elem.fromWidth = Element->elem.Width;
-    Element->elem.fromHeight = Element->elem.Height;
-    Element->elem.scaleStartTime = Leveltime;
-    Element->elem.scaleTime = time;
-    Element->elem.Width = width;
-    Element->elem.Height = height;
+void Hud::SetShader(const char *shader, int width, int height, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+    element->elem.type = 0x04;
+    element->elem.alignOrg = alignOrg;
+    element->elem.alignScreen = alignScreen;
+    element->elem.x = x;
+    element->elem.y = y;
+    element->elem.color.r = r;
+    element->elem.color.g = g;
+    element->elem.color.b = b;
+    element->elem.color.a = a;
+    element->elem.width = width;
+    element->elem.height = height;
+    element->elem.sort = sort;
+    element->elem.materialIndex = G_MaterialIndex(shader);
 }
 
-void Hud::fadeOverTime(int time, float red, float green, float blue, float alpha)
-{
-    Element->elem.fromColor = Element->elem.color;
-    Element->elem.fadeStartTime = Leveltime;
-    Element->elem.fadeTime = time;
-    Element->elem.color.r = red;
-    Element->elem.color.g = green;
-    Element->elem.color.b = blue;
-    Element->elem.color.a = alpha;
+void Hud::SetText(const char *text, int font, float fontScale, float x, float y, int alignOrg, int alignScreen, float sort, unsigned char r, unsigned char g, unsigned char b, unsigned char a, unsigned char glowR, unsigned char glowG, unsigned char glowB, unsigned char glowA) {
+    element->elem.type = 0x01;
+    element->elem.font = font;
+    element->elem.fontScale = fontScale;
+    element->elem.alignOrg = alignOrg;
+    element->elem.alignScreen = alignScreen;
+    element->elem.x = x;
+    element->elem.y = y;
+    element->elem.color.r = r;
+    element->elem.color.g = g;
+    element->elem.color.b = b;
+    element->elem.color.a = a;
+    element->elem.glowColor.r = glowR;
+    element->elem.glowColor.g = glowG;
+    element->elem.glowColor.b = glowB;
+    element->elem.glowColor.a = glowA;
+    element->elem.sort = sort;
+    element->elem.text = G_LocalizedStringIndex(text);
+    element->elem.targetEnt1 = 0x01;
+    element->elem.targetEnt2 = 0x01;
 }
 
-void Hud::setColor(char r, char g, char b, char a, bool isGlow)
-{
+void Hud::MoveOverTime(float time, float x, float y) {
+    element->elem.fromX = element->elem.x;
+    element->elem.fromY = element->elem.y;
+    element->elem.moveStartTime = Leveltime;
+    element->elem.moveTime = time;
+    element->elem.x = x;
+    element->elem.y = y;
+}
+
+void Hud::SetY(float y) {
+    element->elem.y = y;
+}
+
+void Hud::ChangeText(const char *text) {
+    element->elem.text = G_LocalizedStringIndex(text);
+}
+
+void Hud::ScaleOverTime(float time, float width, float height) {
+    element->elem.fromWidth = element->elem.width;
+    element->elem.fromHeight = element->elem.height;
+    element->elem.scaleStartTime = Leveltime;
+    element->elem.scaleTime = time;
+    element->elem.width = width;
+    element->elem.height = height;
+}
+
+void Hud::FadeOverTime(int time, float red, float green, float blue, float alpha) {
+    element->elem.fromColor = element->elem.color;
+    element->elem.fadeStartTime = Leveltime;
+    element->elem.fadeTime = time;
+    element->elem.color.r = red;
+    element->elem.color.g = green;
+    element->elem.color.b = blue;
+    element->elem.color.a = alpha;
+}
+
+void Hud::SetColor(char r, char g, char b, char a, bool isGlow) {
     if (isGlow) {
-        Element->elem.glowColor.r = r;
-        Element->elem.glowColor.g = g;
-        Element->elem.glowColor.b = b;
-        Element->elem.glowColor.a = a;
+        element->elem.glowColor.r = r;
+        element->elem.glowColor.g = g;
+        element->elem.glowColor.b = b;
+        element->elem.glowColor.a = a;
     }
     else {
-        Element->elem.color.r = r;
-        Element->elem.color.g = g;
-        Element->elem.color.b = b;
-        Element->elem.color.a = a;
+        element->elem.color.r = r;
+        element->elem.color.g = g;
+        element->elem.color.b = b;
+        element->elem.color.a = a;
     }
-
 }
 
-void Hud::typeWriterText(char* text)
-{
-    changeText(text);
-    Element->elem.fxBirthTime = Leveltime;
-    Element->elem.fxLetterTime = 100;
-    Element->elem.fxDecayStartTime = 7000;
-    Element->elem.fxDecayDuration = 1000;
-    Element->elem.flags |= 0x4;
+void Hud::TypeWriterText(const char *text) {
+    ChangeText(text);
+    element->elem.fxBirthTime = Leveltime;
+    element->elem.fxLetterTime = 100;
+    element->elem.fxDecayStartTime = 7000;
+    element->elem.fxDecayDuration = 1000;
+    element->elem.flags |= 0x04;
 }

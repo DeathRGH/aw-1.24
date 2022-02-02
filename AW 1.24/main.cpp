@@ -6,13 +6,13 @@
 #include "functions.h"
 #include "global.h"
 #include "hooks.h"
+#include "host_huds.h"
 #include "imports.h"
 #include "library_functions.h"
 #include "menu.h"
 #include "menuoptions.h"
 #include "types.h"
 #include "utility.h"
-#include "host_huds.h"
 
 static int step;
 void RgbThread() {
@@ -41,16 +41,16 @@ void RgbThread() {
 	uartprintf("RgbThread() -> THREAD ENDED!\n");
 }
 
-void testAllClientHuds() {
+void TestAllClientHuds() {
 	HudElem_DestroyAll();
-	game_hudelem_s* textTest = precacheElem(0x7FF);
-	game_hudelem_s* testTypewriter = precacheElem(0x7FF);
-	game_hudelem_s* testHud = precacheElem(0x7FF);
+	game_hudelem_s *textTest = PrecacheElem(0x7FF);
+	game_hudelem_s *testTypewriter = PrecacheElem(0x7FF);
+	game_hudelem_s *testHud = PrecacheElem(0x7FF);
 
-	Hud(testTypewriter).setText((char*)"", 6, 1.0f, 300, 50, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
-	Hud(testTypewriter).typeWriterText((char*)"Typewriter text on AW 1.24");
-	Hud(textTest).setText((char*)"Testing all client text on AW", 6, 1.0f, 200, 150, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
-	Hud(testHud).setShader("white", 250, 50, 200, 150, 5, 0, 0, 0, 0, 0, 175);
+	Hud(testTypewriter).SetText("", 6, 1.0f, 300, 50, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
+	Hud(testTypewriter).TypeWriterText("Typewriter text on AW 1.24");
+	Hud(textTest).SetText("Testing all client text on AW", 6, 1.0f, 200, 150, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
+	Hud(testHud).SetShader("white", 250, 50, 200, 150, 5, 0, 0, 0, 0, 0, 175);
 }
 
 void DetectGame() {
@@ -76,7 +76,7 @@ void DetectGame() {
 		Functions::Init();
 		Menu::Init();
 
-		testAllClientHuds();
+		//TestAllClientHuds();
 
 		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
