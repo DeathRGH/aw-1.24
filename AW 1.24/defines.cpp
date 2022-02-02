@@ -154,43 +154,68 @@ const char *GetRawMapname() {
 	return cgs.mapname;
 }
 
-void DrawText(const char *text, float x, float y, uint64_t font, float fontSize, float *color) {
-	UI_DrawText(ScrPlace, text, 0x7FFFFFFF, font, x, y, 0, 0, fontSize, color, 0, LocalClientNum_t::LOCAL_CLIENT_0);
+void DrawText(const char *text, float x, float y, float fontSize, float *color, Font_s *font) {
+	R_AddCmdDrawText(text, 0x7FFFFFFF, font, x, y, fontSize, fontSize, 0.0f, color, 0);
 }
 
-void DrawText(const char *text, float x, float y, const char *font, float fontSize, float *color) {
-	UI_DrawText(ScrPlace, text, 0x7FFFFFFF, MENU_FONT, x, y, 0, 0, fontSize, color, 0, LocalClientNum_t::LOCAL_CLIENT_0);
+void DrawText(const char *text, float x, float y, float fontSize, float *color, const char *font) {
+	R_AddCmdDrawText(text, 0x7FFFFFFF, R_RegisterFont(font, 0), x, y, fontSize, fontSize, 0.0f, color, 0);
 }
 
 void DrawText(const char *text, float x, float y, float fontSize, float *color) {
-	UI_DrawText(ScrPlace, text, 0x7FFFFFFF, MENU_FONT, x, y, 0, 0, fontSize, color, 0, LocalClientNum_t::LOCAL_CLIENT_0);
+	R_AddCmdDrawText(text, 0x7FFFFFFF, R_RegisterFont(FontForIndex(-1), 0), x, y, fontSize, fontSize, 0.0f, color, 0);
 }
 
-void DrawShader(float x, float y, float width, float height, float *color, int shader) {
-	//R_AddCmdDrawStretchPic(x, y, width, height, 0, 0, 1, 1, color, shader);
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor, Font_s *font) {
+	R_AddCmdDrawTextWithEffects(text, 0x7FFFFFFF, font, x, y, fontSize, fontSize, 0.0f, color, 0, glowColor, Material_RegisterHandle("white", 0), Material_RegisterHandle("white", 0), 0, 0, 0, 0);
 }
 
-void DrawShader(float x, float y, float width, float height, float *color, const char *shader) {
-	//R_AddCmdDrawStretchPic(x, y, width, height, 0, 0, 1, 1, color, Material_RegisterHandle(shader, 0));
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor, const char *font) {
+	R_AddCmdDrawTextWithEffects(text, 0x7FFFFFFF, R_RegisterFont(font, 0), x, y, fontSize, fontSize, 0.0f, color, 0, glowColor, Material_RegisterHandle("white", 0), Material_RegisterHandle("white", 0), 0, 0, 0, 0);
+}
+
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor) {
+	R_AddCmdDrawTextWithEffects(text, 0x7FFFFFFF, R_RegisterFont(FontForIndex(-1), 0), x, y, fontSize, fontSize, 0.0f, color, 0, glowColor, Material_RegisterHandle("white", 0), Material_RegisterHandle("white", 0), 0, 0, 0, 0);
+}
+
+void DrawShader(float x, float y, float width, float height, float *color, Material *material) {
+	R_AddCmdDrawStretchPic(x, y, width, height, 0.0f, 0.0f, 1.0f, 1.0f, color, material);
+}
+
+void DrawShader(float x, float y, float width, float height, float *color, const char *material) {
+	R_AddCmdDrawStretchPic(x, y, width, height, 0.0f, 0.0f, 1.0f, 1.0f, color, Material_RegisterHandle(material, 0));
 }
 
 void DrawShader(float x, float y, float width, float height, float *color) {
-	UI_FillRectPhysical(x, y, width, height, color);
-	//R_AddCmdDrawStretchPic(x, y, width, height, 0, 0, 1, 1, color, Material_RegisterHandle("white", 0));
+	R_AddCmdDrawStretchPic(x, y, width, height, 0.0f, 0.0f, 1.0f, 1.0f, color, Material_RegisterHandle("white", 0));
 }
 
-void DrawCenterTextWithBackground(const char *text, float x, float y, float *color, float fontSize, float *backgroundColor) {
-	float textWidth = R_TextWidth(text, 0x7FFFFFFF, GetTTFForFont(FONT_DEFAULT), R_TextHeight(FONT_DEFAULT), 1.5f) * fontSize;
-	float textHeight = R_TextHeight(MENU_FONT) * fontSize;
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor, Font_s *font) {
+	float textWidth = R_TextWidth(text, 0x7FFFFFFF, font) * fontSize;
+	float textHeight = R_TextHeight(font) * fontSize;
 
-	UI_FillRectPhysical(x - 4 - textWidth / 2, y - (textHeight * 0.2f) - textHeight / 2, textWidth + 8, textHeight + (textHeight * 0.2f), backgroundColor);
-	UI_DrawText(ScrPlace, text, 0x7FFFFFFF, MENU_FONT, x - textWidth / 2, y + textHeight / 2, 0, 0, fontSize, color, 0, LocalClientNum_t::LOCAL_CLIENT_0);
-	//R_AddCmdDrawStretchPic(x - textWidth / 2, y - textHeight / 2, textWidth, textHeight, 0, 0, 1, 1, backgroundColor, Material_RegisterHandle("white", 0));
-	//R_AddCmdDrawText(text, 0x7FFFFFFF, fontAsInt, x - textWidth / 2, y + textHeight / 2, fontSize, fontSize, 0, color, 0);
+	DrawShader(x - textWidth / 2, y - textHeight / 2, textWidth, textHeight, backgroundColor);
+	DrawText(text, x - textWidth / 2, y + textHeight / 2, fontSize, color, font);
+}
+
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor, const char *font) {
+	float textWidth = R_TextWidth(text, 0x7FFFFFFF, R_RegisterFont(font, 0)) * fontSize;
+	float textHeight = R_TextHeight(R_RegisterFont(font, 0)) * fontSize;
+
+	DrawShader(x - textWidth / 2, y - textHeight / 2, textWidth, textHeight, backgroundColor);
+	DrawText(text, x - textWidth / 2, y + textHeight / 2, fontSize, color, font);
+}
+
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor) {
+	float textWidth = R_TextWidth(text, 0x7FFFFFFF, R_RegisterFont(FontForIndex(-1), 0)) * fontSize;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(-1), 0)) * fontSize;
+
+	DrawShader(x - textWidth / 2, y - textHeight / 2, textWidth, textHeight, backgroundColor);
+	DrawText(text, x - textWidth / 2, y + textHeight / 2, fontSize, color);
 }
 
 void DrawCenterTextWithBackgroundWithBorder(const char *text, float x, float y, float *color, float fontSize, float *backgroundColor, int borderSize, float *borderColor) {
-	float textWidth = R_TextWidth(text, 0x7FFFFFFF, GetTTFForFont(FONT_DEFAULT), R_TextHeight(FONT_DEFAULT), 1.5f) * fontSize;
+	float textWidth = R_TextWidth(text, 0x7FFFFFFF, R_RegisterFont(FontForIndex(-1), 0)) * fontSize;
 	float textHeight = R_TextHeight(MENU_FONT) * fontSize;
 
 	UI_FillRectPhysical(x - 4 - textWidth / 2, y - (textHeight * 0.2f) - borderSize - textHeight / 2, textWidth + 8, textHeight + (textHeight * 0.2f), backgroundColor);
@@ -215,7 +240,7 @@ void DrawLine(float x1, float y1, float x2, float y2, float width, float *color)
 float hexDumpCyan[4] = { 0.0f, 0.48f, 0.8f, 1.0f };
 
 void DrawHexDump(float x, float y, uint64_t address, int length, float fontSize) {
-	int addressWidth = R_TextWidth("FFFFFFFFFFFFFFFF", 0x7FFFFFFF, GetTTFForFont(FONT_DEFAULT), R_TextHeight(FONT_DEFAULT), 1.5f) * fontSize;
+	int addressWidth = R_TextWidth("FFFFFFFFFFFFFFFF", 0x7FFFFFFF, R_RegisterFont(FontForIndex(-1), 0)) * fontSize;
 	
 	DrawShader(x, y, 660.0f, 40.0f + (length / 16) * 20.0f, black10);
 

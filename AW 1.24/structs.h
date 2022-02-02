@@ -19,16 +19,31 @@ enum LocalClientNum_t : int {
 	LOCAL_CLIENT_1 = 1,
 	LOCAL_CLIENT_2 = 2,
 	LOCAL_CLIENT_3 = 3,
-	LOCAL_CLIENT_COUNT = 5,
+	LOCAL_CLIENT_COUNT = 5
 };
+
+enum svscmd_type : int {
+	SV_CMD_CAN_IGNORE = 0,
+	SV_CMD_RELIABLE = 1
+};
+
 
 //
 
-struct Font_s {
-
+struct Font_s { // 0x28
+	const char *name;
+	int height;
+	int u1;
+	uintptr_t u2;
+	uintptr_t glow;
+	uintptr_t u3;
 };
 
 struct gentity_s {
+
+};
+
+struct Material {
 
 };
 

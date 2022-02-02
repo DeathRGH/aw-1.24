@@ -10,7 +10,6 @@ struct Game_s {
 	const char *mapname;
 	const char *hostname;
 	bool inZombies;
-	bool inWZ;
 };
 extern Game_s Game;
 

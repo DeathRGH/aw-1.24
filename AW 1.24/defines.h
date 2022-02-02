@@ -1,6 +1,7 @@
 #pragma once
 
 #include "global.h"
+#include "structs.h"
 
 #define MAX_CLIENTS 18
 #define MAX_ENTITYS 2048
@@ -66,13 +67,18 @@ bool InGame();
 const char *GetRawGametype();
 const char *GetRawMapname();
 
-void DrawText(const char *text, float x, float y, uint64_t font, float fontSize, float *color);
-void DrawText(const char *text, float x, float y, const char *font, float fontSize, float *color);
+void DrawText(const char *text, float x, float y, float fontSize, float *color, struct Font_s *font);
+void DrawText(const char *text, float x, float y, float fontSize, float *color, const char *font);
 void DrawText(const char *text, float x, float y, float fontSize, float *color);
-void DrawShader(float x, float y, float width, float height, float *color, int shader);
-void DrawShader(float x, float y, float width, float height, float *color, const char *shader);
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor, Font_s *font);
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor, const char *font);
+void DrawTextWithGlow(const char *text, float x, float y, float fontSize, float *color, float *glowColor);
+void DrawShader(float x, float y, float width, float height, float *color, struct Material *material);
+void DrawShader(float x, float y, float width, float height, float *color, const char *material);
 void DrawShader(float x, float y, float width, float height, float *color);
-void DrawCenterTextWithBackground(const char *text, float x, float y, float *color = white10, float fontSize = 0.5f, float *backgroundColor = black08);
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor, Font_s *font);
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor, const char *font);
+void DrawCenterTextWithBackground(const char *text, float x, float y, float fontSize, float *color, float *backgroundColor);
 void DrawCenterTextWithBackgroundWithBorder(const char *text, float x, float y, float *color = white10, float fontSize = 0.5f, float *backgroundColor = black08, int borderSize = 2, float *borderColor = white10);
 void DrawLine(float x1, float y1, float x2, float y2, float width, float *color);
 void DrawHexDump(float x, float y, uint64_t address, int length, float fontSize);

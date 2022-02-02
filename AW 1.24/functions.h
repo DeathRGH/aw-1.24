@@ -10,6 +10,8 @@ typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text)
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
 typedef void(*G_GetAngles_t)(LocalClientNum_t, short, float *);
 
+typedef Material *(*Material_RegisterHandle_t)(const char *name, int imageTrack);
+
 typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t);
 typedef void(*PlayerCmd_AllowDodge_t)(scr_entref_t);
 typedef void(*PlayerCmd_AllowHighJumpDrop_t)(scr_entref_t);
@@ -21,9 +23,13 @@ typedef void(*PlayerCmd_ForceMantle_t)(scr_entref_t);
 typedef void(*PlayerCmd_SetClientDvar_t)(scr_entref_t);
 typedef void(*PlayerCmd_setOrigin_t)(scr_entref_t);
 
-typedef void(*R_AddCmdDrawText_t)(const char *, int, Font_s *, float, float, float, float, float, const float *, int);
-typedef void *(*R_GetCommandBuffer_t)(GfxRenderCommand, unsigned long);
-typedef Font_s *(*R_RegisterFont_t)(const char *, int);
+typedef void(*R_AddCmdDrawStretchPic_t)(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, Material *material);
+typedef void(*R_AddCmdDrawText_t)(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style);
+typedef void(*R_AddCmdDrawTextWithEffects_t)(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration);
+typedef void *(*R_GetCommandBuffer_t)(GfxRenderCommand renderCmd, unsigned long bytes);
+typedef Font_s *(*R_RegisterFont_t)(const char *name, int imageTrack);
+typedef int(*R_TextHeight_t)(Font_s *font);
+typedef int(*R_TextWidth_t)(const char *text, int maxChars, Font_s *font);
 
 typedef void(*Scr_AddEntity_t)(const gentity_s *);
 typedef void(*Scr_AddInt_t)(int);
@@ -35,7 +41,7 @@ typedef void(*Scr_NotifyNum_t)(int entnum, unsigned int classnum, scr_string_t s
 typedef const char *(*SL_ConvertToString_t)(scr_string_t stringValue);
 typedef scr_string_t(*SL_GetString_t)(const char *, unsigned int);
 
-typedef void(*SV_GameSendServerCommand_t)(signed char, int, const char *);
+typedef void(*SV_GameSendServerCommand_t)(signed char clientNum, svscmd_type type, const char *text);
 
 //
 
@@ -45,6 +51,8 @@ extern Cbuf_AddText_t Cbuf_AddText;
 
 extern G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 extern G_GetAngles_t G_GetAngles;
+
+extern Material_RegisterHandle_t Material_RegisterHandle;
 
 extern PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
 extern PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
@@ -57,9 +65,13 @@ extern PlayerCmd_ForceMantle_t PlayerCmd_ForceMantle;
 extern PlayerCmd_SetClientDvar_t PlayerCmd_SetClientDvar;
 extern PlayerCmd_setOrigin_t PlayerCmd_setOrigin;
 
+extern R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic;
 extern R_AddCmdDrawText_t R_AddCmdDrawText;
+extern R_AddCmdDrawTextWithEffects_t R_AddCmdDrawTextWithEffects;
 extern R_GetCommandBuffer_t R_GetCommandBuffer;
 extern R_RegisterFont_t R_RegisterFont;
+extern R_TextHeight_t R_TextHeight;
+extern R_TextWidth_t R_TextWidth;
 
 extern Scr_AddEntity_t Scr_AddEntity;
 extern Scr_AddInt_t Scr_AddInt;
@@ -99,7 +111,6 @@ typedef void (*CL_DrawText_t)(const unsigned int scrPlace, const char *text, int
 typedef int (*DB_FindXAssetHeader_t)(int type, const char *name, bool errorIfMissing, int waitTime);
 
 typedef void(*R_AddCmdDrawQuadPicW_t)(const float *verts, float w, const float *color, uint64_t material, uint64_t image);
-typedef float (*R_TextWidth_t)(const char *text, int maxChars, uint64_t ttfFont, int textHeight, float letterSpacing);
 
 typedef unsigned short (*SL_GetStringOfSize_t)(const char *str, unsigned int user, unsigned int len);
 
@@ -124,7 +135,6 @@ extern CL_DrawText_t CL_DrawText;
 extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 extern R_AddCmdDrawQuadPicW_t R_AddCmdDrawQuadPicW;
-extern R_TextWidth_t R_TextWidth;
 
 extern SL_GetStringOfSize_t SL_GetStringOfSize;
 
@@ -139,8 +149,6 @@ extern bool AimTarget_IsTargetVisible_Custom(int targetEntNum, const char *visBo
 
 extern bool Dvar_GetBool(const char *dvarName);
 extern const char *Dvar_GetString(const char *dvarName);
-
-extern int R_TextHeight(uint64_t font);
 
 void Scr_SetNumParam(int paramcount);
 

@@ -7,6 +7,8 @@ Cbuf_AddText_t Cbuf_AddText;
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 G_GetAngles_t G_GetAngles;
 
+Material_RegisterHandle_t Material_RegisterHandle;
+
 PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
 PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
 PlayerCmd_AllowHighJumpDrop_t PlayerCmd_AllowHighJumpDrop;
@@ -18,9 +20,13 @@ PlayerCmd_ForceMantle_t PlayerCmd_ForceMantle;
 PlayerCmd_SetClientDvar_t PlayerCmd_SetClientDvar;
 PlayerCmd_setOrigin_t PlayerCmd_setOrigin;
 
+R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic;
 R_AddCmdDrawText_t R_AddCmdDrawText;
+R_AddCmdDrawTextWithEffects_t R_AddCmdDrawTextWithEffects;
 R_GetCommandBuffer_t R_GetCommandBuffer;
 R_RegisterFont_t R_RegisterFont;
+R_TextHeight_t R_TextHeight;
+R_TextWidth_t R_TextWidth;
 
 Scr_AddEntity_t Scr_AddEntity;
 Scr_AddInt_t Scr_AddInt;
@@ -58,7 +64,6 @@ CL_DrawText_t CL_DrawText;
 DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 R_AddCmdDrawQuadPicW_t R_AddCmdDrawQuadPicW;
-R_TextWidth_t R_TextWidth;
 
 SL_GetStringOfSize_t SL_GetStringOfSize;
 
@@ -111,10 +116,6 @@ const char *Dvar_GetString(const char *dvarName) {
 	int dvar_s = 0; //Dvar_FindVar(dvarName);
 	if (dvar_s)
 		return *(const char **)(dvar_s + 0x10);
-}
-
-int R_TextHeight(uint64_t font) {
-	return *(int *)(font + 0x10) * 1.5f;
 }
 
 void Scr_SetNumParam(int paramcount) {

@@ -10,6 +10,8 @@ void Init() {
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
 
+	Material_RegisterHandle = (Material_RegisterHandle_t)0x0000000000A058D0;
+
 	PlayerCmd_AllowBoostJump = (PlayerCmd_AllowBoostJump_t)0x000000000070F100;
 	PlayerCmd_AllowDodge = (PlayerCmd_AllowDodge_t)0x000000000070F180;
 	PlayerCmd_AllowHighJumpDrop = (PlayerCmd_AllowHighJumpDrop_t)0x000000000070F280;
@@ -21,9 +23,13 @@ void Init() {
 	PlayerCmd_SetClientDvar = (PlayerCmd_SetClientDvar_t)0x000000000070EA60;
 	PlayerCmd_setOrigin = (PlayerCmd_setOrigin_t)0x000000000070C800;
 
+	R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x0000000000A15D10;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x0000000000A16340;
+	R_AddCmdDrawTextWithEffects = (R_AddCmdDrawTextWithEffects_t)0x0000000000A16480;
 	R_GetCommandBuffer = (R_GetCommandBuffer_t)0x0000000000A15660;
 	R_RegisterFont = (R_RegisterFont_t)0x00000000009FB230;
+	R_TextHeight = (R_TextHeight_t)0x00000000009FB480;
+	R_TextWidth = (R_TextWidth_t)0x00000000009FB2E0;
 
 	Scr_AddEntity = (Scr_AddEntity_t)0x00000000007662C0;
 	Scr_AddInt = (Scr_AddInt_t)0x00000000008547E0;
@@ -51,7 +57,6 @@ void Init() {
 	//DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00;
 
 	//R_AddCmdDrawQuadPicW = (R_AddCmdDrawQuadPicW_t)vHandler->addresses.addr_R_AddCmdDrawQuadPicW;
-	//R_TextWidth = (R_TextWidth_t)vHandler->addresses.addr_R_TextWidth;
 
 	//SL_GetStringOfSize = (SL_GetStringOfSize_t)0x00;
 
