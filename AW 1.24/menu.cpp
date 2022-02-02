@@ -161,7 +161,7 @@ void DrawColorEditor(ColorMenuOption *value) {
 	DrawFloatSlider("Green", &value->color.g, "%.2f");
 	DrawFloatSlider("Blue", &value->color.b, "%.2f");
 	DrawFloatSlider("Alpha", &value->color.a, "%.2f");
-	DrawToggle("Fade", &value->rgbOverride);
+	DrawToggle("Fade", &value->color.rgbOverride);
 }
 
 void DrawBackgroundShader() {
@@ -421,7 +421,9 @@ void LoopSettings() {
 		//Host::Lobby::Godmode(Options.debug_godmode.state);
 		//Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
 
-		Sleep(50);
+
+		*(char *)0x00000000007D6F90 = Options.menuOpen ? 0xC3 : 0x55; //GPad_UpdateDigitals
+		Sleep(10);
 	}
 
 	uartprintf("LoopSettings() -> THREAD ENDED!\n");

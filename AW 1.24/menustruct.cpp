@@ -122,7 +122,7 @@ void SetupColor(ColorMenuOption *option, float r, float g, float b, float a, flo
 	SetupFloat(&option->color.b, b, b, 1.0f, 0.0f, step);
 	SetupFloat(&option->color.a, a, a, maxAlpha, minAlpha, step);
 
-	SetupBool(&option->rgbOverride, rgb);
+	SetupBool(&option->color.rgbOverride, rgb);
 
 	option->maxAlpha = maxAlpha;
 	option->minAlpha = minAlpha;

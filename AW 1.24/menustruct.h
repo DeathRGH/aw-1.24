@@ -56,12 +56,13 @@ struct Color {
 	FloatMenuOption g;
 	FloatMenuOption b;
 	FloatMenuOption a;
+	BoolMenuOption rgbOverride;
 
 	float *ToFloatArray(bool alphaOverride = false, float alpha = 1.0f) {
 		static float retVal[4];
-		retVal[0] = r.current;
-		retVal[1] = g.current;
-		retVal[2] = b.current;
+		retVal[0] = rgbOverride.state ? rgbColor10[0] : r.current;
+		retVal[1] = rgbOverride.state ? rgbColor10[1] : g.current;
+		retVal[2] = rgbOverride.state ? rgbColor10[2] : b.current;
 		
 		if (alphaOverride)
 			retVal[3] = alpha;
@@ -74,7 +75,6 @@ struct Color {
 
 struct ColorMenuOption {
 	Color color;
-	BoolMenuOption rgbOverride;
 
 	float maxAlpha;
 	float minAlpha;

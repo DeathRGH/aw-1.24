@@ -20,7 +20,6 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="menustruct.h" />
     <ClInclude Include="menuoptions.h" />
-    <ClInclude Include="offhost.h" />
     <ClInclude Include="sparse.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="syscall.h" />

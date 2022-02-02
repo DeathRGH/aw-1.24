@@ -132,8 +132,6 @@ float rgbColor07[4] = {1.0f, 0.5f, 0.0f, 0.7f};
 float rgbColor08[4] = {1.0f, 0.5f, 0.0f, 0.8f};
 float rgbColor09[4] = {1.0f, 0.5f, 0.0f, 0.9f};
 float rgbColor10[4] = {1.0f, 0.5f, 0.0f, 1.0f};
-float rgbColorJinx[4] = {1.0f, 0.5f, 0.0f, 1.0f};
-float rgbColorRetard[4] = {1.0f, 0.5f, 0.0f, 1.0f};
 
 void UpdateRGB() {
 	for (int i = 0; i < 3; i++) {

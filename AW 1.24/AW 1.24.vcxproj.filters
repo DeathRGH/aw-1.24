@@ -41,9 +41,6 @@
     <ClInclude Include="menuoptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="offhost.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sparse.h">
       <Filter>Header Files</Filter>
     </ClInclude>

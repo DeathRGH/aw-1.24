@@ -7,7 +7,6 @@
 #include "imports.h"
 #include "menu.h"
 #include "menuoptions.h"
-#include "offhost.h"
 #include "structs.h"
 #include "utility.h"
 

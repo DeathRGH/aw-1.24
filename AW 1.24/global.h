@@ -129,8 +129,6 @@ extern float rgbColor07[4];
 extern float rgbColor08[4];
 extern float rgbColor09[4];
 extern float rgbColor10[4];
-extern float rgbColorJinx[4];
-extern float rgbColorRetard[4];
 
 void UpdateRGB();
 
