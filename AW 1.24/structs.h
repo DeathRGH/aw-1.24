@@ -8,6 +8,10 @@ typedef unsigned short scr_string_t;
 
 //
 
+enum GfxRenderCommand : int {
+	//...
+};
+
 enum LocalClientNum_t : int {
 	INVALID_LOCAL_CLIENT = -1,
 	LOCAL_CLIENT_0 = 0,
@@ -23,8 +27,6 @@ enum LocalClientNum_t : int {
 struct gentity_s {
 
 };
-
-
 
 
 

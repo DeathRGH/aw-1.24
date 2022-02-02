@@ -10,6 +10,8 @@ void Init() {
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
 
+	R_GetCommandBuffer = (R_GetCommandBuffer_t)0x0000000000A15660;
+
 	Scr_AddEntity = (Scr_AddEntity_t)0x00000000007662C0;
 	Scr_AddInt = (Scr_AddInt_t)0x00000000008547E0;
 	Scr_AddString = (Scr_AddString_t)0x0000000000854AD0;

@@ -7,6 +7,8 @@ Cbuf_AddText_t Cbuf_AddText;
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 G_GetAngles_t G_GetAngles;
 
+R_GetCommandBuffer_t R_GetCommandBuffer;
+
 Scr_AddEntity_t Scr_AddEntity;
 Scr_AddInt_t Scr_AddInt;
 Scr_AddString_t Scr_AddString;

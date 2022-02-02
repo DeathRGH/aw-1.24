@@ -10,6 +10,8 @@ typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text)
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
 typedef void(*G_GetAngles_t)(LocalClientNum_t, short, float *);
 
+typedef void *(*R_GetCommandBuffer_t)(GfxRenderCommand, unsigned long);
+
 typedef void(*Scr_AddEntity_t)(const gentity_s *);
 typedef void(*Scr_AddInt_t)(int);
 typedef void(*Scr_AddString_t)(const char *);
@@ -27,6 +29,8 @@ extern Cbuf_AddText_t Cbuf_AddText;
 
 extern G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 extern G_GetAngles_t G_GetAngles;
+
+extern R_GetCommandBuffer_t R_GetCommandBuffer;
 
 extern Scr_AddEntity_t Scr_AddEntity;
 extern Scr_AddInt_t Scr_AddInt;
