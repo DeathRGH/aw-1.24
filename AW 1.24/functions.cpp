@@ -6,6 +6,11 @@ Cbuf_AddText_t Cbuf_AddText;
 
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 G_GetAngles_t G_GetAngles;
+G_LocalizedStringIndex_t G_LocalizedStringIndex;
+G_MaterialIndex_t G_MaterialIndex;
+
+HudElem_Alloc_t HudElem_Alloc;
+HudElem_DestroyAll_t HudElem_DestroyAll;
 
 Material_RegisterHandle_t Material_RegisterHandle;
 
@@ -71,11 +76,6 @@ UI_DrawText_t UI_DrawText;
 UI_FillRectPhysical_t UI_FillRectPhysical;
 
 sub_E9F770_t sub_E9F770;
-
-HudElem_Alloc_t HudElem_Alloc;
-G_MaterialIndex_t G_MaterialIndex;
-G_LocalizedStringIndex_t G_LocalizedStringIndex;
-HudElem_DestroyAll_t HudElem_DestroyAll;
 
 //Custom
 void AimTarget_GetTagPos_Custom(int entNum, const char *tagName, float *pos) {
