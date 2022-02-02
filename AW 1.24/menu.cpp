@@ -3,7 +3,7 @@
 #include "cache.h"
 #include "defines.h"
 #include "functions.h"
-//#include "host.h"
+#include "host.h"
 #include "imports.h"
 #include "menuoptions.h"
 #include "structs.h"
@@ -197,6 +197,8 @@ void DrawMenuText() {
 		DrawColorSubMenuButton("Menu Text Color", &Options.color_menuText, &Options.Sub_Color_MenuText, submenus::Sub_Color_MenuText);
 		DrawColorSubMenuButton("Menu Toggle Color", &Options.color_menuToggle, &Options.Sub_Color_MenuToggle, submenus::Sub_Color_MenuToggle);
 		DrawColorSubMenuButton("Menu Control Background Color", &Options.color_menuControlBackground, &Options.Sub_Color_MenuControlBackground, submenus::Sub_Color_MenuControlBackground);
+		DrawToggle("host_magicBullet", &Options.host_magicBullet);
+		DrawIntSlider("host_magicBulletProjectileIndex", &Options.host_magicBulletProjectileIndex, MagicBulletProjectileForIndex(Options.host_magicBulletProjectileIndex.current));
 	}
 
 	if (Options.menuPageIndex == submenus::Sub_Color_MenuBorder)
@@ -418,8 +420,8 @@ void MonitorButtons() {
 void LoopSettings() {
 	uartprintf("LoopSettings() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
-		//Host::Lobby::Godmode(Options.debug_godmode.state);
-		//Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
+		Host::Lobby::Godmode(Options.debug_godmode.state);
+		Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
 
 
 		*(char *)0x00000000007D6F90 = Options.menuOpen ? 0xC3 : 0x55; //GPad_UpdateDigitals

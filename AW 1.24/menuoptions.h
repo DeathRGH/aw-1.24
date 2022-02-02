@@ -47,6 +47,9 @@ struct Options_t {
 	BoolMenuOption debug_test2;
 	BoolMenuOption debug_testDisabled;
 
+	BoolMenuOption host_magicBullet;
+	IntMenuOption host_magicBulletProjectileIndex;
+
 	//declare sub menus here
 	SubMenuMenuOption Sub_Debug;
 

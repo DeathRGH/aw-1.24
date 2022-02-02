@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "functions.h"
 #include "global.h"
+#include "host.h"
 #include "imports.h"
 #include "menu.h"
 #include "menuoptions.h"
@@ -47,8 +48,9 @@ void R_EndFrame_Hook() {
 
 void Scr_Notify_Hook(gentity_s *ent, scr_string_t stringValue, unsigned int paramcount) {
 	if (!strcmp(SL_ConvertToString(stringValue), "weapon_fired")) {
-		uartprintf("weapon_fired\n");
-		//FireMagicBullet(*(short *)ent, "iw5_juggmicrodronelauncher_mp");
+		//uartprintf("weapon_fired\n");
+		if (Menu::Options.host_magicBullet.state)
+			Host::FireMagicBullet(*(short *)ent, MagicBulletProjectileForIndex(Menu::Options.host_magicBulletProjectileIndex.current));
 
 		//float newPos[3] = { 0.0f, 0.0f, 0.0f };
 		//Scr_AddVector(newPos);

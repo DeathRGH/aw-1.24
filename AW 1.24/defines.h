@@ -50,6 +50,7 @@ enum XAssetType_t {
 const char *FontForIndex(int index);
 const char *FontDisplayNameForIndex(int index);
 const char *AimbotBoneForIndex(int index);
+const char *MagicBulletProjectileForIndex(int index);
 
 const char *GetRawWeaponNameForIndex(int id);
 const char *GetWeaponNameForIndex(int id);

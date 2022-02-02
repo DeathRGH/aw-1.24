@@ -1,7 +1,10 @@
 #include "host.h"
 
 #include "functions.h"
+#include "imports.h"
 #include "structs.h"
+
+NAMESPACE(Host)
 
 void FireMagicBullet(short entNum, const char *projectile) {
 	float playerAngles[3];
@@ -25,3 +28,16 @@ void FireMagicBullet(short entNum, const char *projectile) {
 
 	Scr_MagicBullet();
 }
+
+NAMESPACE(Lobby)
+
+void Godmode(bool state) {
+	memcpy((void *)0x00000000007138BA, state ? "\x90\x90\x90\x90\x90\x90\x90" : "\x45\x29\xA7\xD0\x01\x00\x00", 7);
+}
+
+void InfiniteAmmo(bool state) {
+	memcpy((void *)0x00000000005768EF, state ? "\x90\x90\x90\x90\x90" : "\x44\x29\x7C\x81\x08", 5);
+}
+
+END
+END
