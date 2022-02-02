@@ -5,6 +5,7 @@
 #include "functions.h"
 #include "global.h"
 #include "imports.h"
+#include "menu.h"
 #include "menuoptions.h"
 #include "offhost.h"
 #include "structs.h"
@@ -21,16 +22,19 @@ void CL_Disconnect_Hook(LocalClientNum_t localClientNum, bool deactivateClient) 
 }
 
 void R_EndFrame_Hook() {
-	//R_AddCmdDrawText("Test Text", 0x7FFFFFFF, R_RegisterFont("fonts/titleFont", 0), 500.0f, 500.0f, 1.0f, 1.0f, 0.0f, white10, 0);
-	Font_s *newFont = R_RegisterFont("fonts/titleFont", 0);
-	DrawText(newFont->name, 500.0f, 500.0f, 1.0f, white10, newFont);
+	Menu::DrawMenu();
 
-	Material *newMaterial = Material_RegisterHandle("white", 0);
-	DrawShader(500.0f, 650.0f, 600.0f, 100.0f, black08);
-	DrawTextWithGlow("Glowing Text", 500.0f, 750.0f, 1.0f, white10, cyan10);
+	//Font_s *newFont = R_RegisterFont("fonts/titleFont", 0);
+	//DrawText(newFont->name, 500.0f, 500.0f, 1.0f, white10, newFont);
 
-	DrawCenterTextWithBackground("ooo O ooo", 1920 / 2, 1080 / 2, 0.4f, white10, black05);
-	DrawShader(1920 / 2 - 2, 1080 / 2 - 2, 4.0f, 4.0f, cyan10);
+	//Material *newMaterial = Material_RegisterHandle("white", 0);
+	//DrawText(newMaterial->name, 500.0f, 300.0f, 1.0f, white10, newFont);
+
+	//DrawShader(500.0f, 650.0f, 600.0f, 100.0f, black08);
+	//DrawTextWithGlow("Glowing Text", 500.0f, 750.0f, 1.0f, white10, cyan10);
+
+	//DrawCenterTextWithBackground("ooo O ooo", 1920 / 2, 1080 / 2, 0.4f, white10, black05);
+	//DrawShader(1920 / 2 - 2, 1080 / 2 - 2, 4.0f, 4.0f, cyan10);
 
 
 	//reversed below

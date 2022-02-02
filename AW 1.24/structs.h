@@ -44,7 +44,7 @@ struct gentity_s {
 };
 
 struct Material {
-
+	const char *name;
 };
 
 

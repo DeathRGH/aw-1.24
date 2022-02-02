@@ -15,9 +15,9 @@ void DrawButton(const char *text, ButtonMenuOption *value, bool enabled = true) 
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 
 	value->scrollIndex = Options.menuOptionIndex;
 	AddButtonMenuOptionToList(value);
@@ -28,9 +28,9 @@ void DrawToggle(const char *text, BoolMenuOption *value) {
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.boxSize.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.boxSize.current) / 2) + (Options.menuBorder.current * 2), Options.boxSize.current, Options.boxSize.current, value->enabled ? Options.color_menuText.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray(true, 0.5f));
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.boxSize.current - 4, Options.menuY.current + Options.menuTabHeight + 1 + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.boxSize.current) / 2) + (Options.menuBorder.current * 2), Options.boxSize.current - 2, Options.boxSize.current - 2, Options.color_menuControlBackground.color.ToFloatArray());
 
@@ -51,11 +51,11 @@ void DrawSubMenuButton(const char *text, SubMenuMenuOption *value, int newMenu, 
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	int textWidth = 0;//Functions::R_TextWidth(text, 0x7FFFFFFF, GetFontForIndex(Options.menuFontIndex.current), GetFontForIndex(Options.menuFontIndex.current)->pixelHeight, 0, 0) * Options.menuFontSize.current;
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	int textWidth = R_TextWidth(text, 0x7FFFFFFF, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
-	//DrawText("-->", Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - textWidth - 6, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2) - 2, textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
+	DrawText("-->", Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - textWidth - 6, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2) - 2, Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 
 	SetupSubMenu(text, value, newMenu, Options.menuPageIndex, Options.menuOptionIndex, enabled);
 	value->scrollIndex = Options.menuOptionIndex;
@@ -67,23 +67,23 @@ void DrawIntSlider(const char *text, IntMenuOption *value, const char *fmt = "%i
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
 	int additiveRange = value->min >= 0 ? 0 : -value->min;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 	char temp[100];
 	snprintf(temp, sizeof(temp), fmt, value->current);
-	int fmtWidth = //Functions::R_TextWidth(temp, 0x7FFFFFFF, GetFontForIndex(Options.menuFontIndex.current), GetFontForIndex(Options.menuFontIndex.current)->pixelHeight, 0, 0) * Options.menuFontSize.current;
-	//DrawText(temp, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - fmtWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	int fmtWidth = R_TextWidth(temp, 0x7FFFFFFF, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
+	DrawText(temp, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - fmtWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + (Options.menuBorder.current * 2), Options.sliderWidth.current, Options.sliderHeight.current, value->enabled ? white10 : white05);
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 2, Options.sliderHeight.current - 2, black10);
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 2 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 4, Options.sliderHeight.current - 4, value->enabled ? white10 : white05);
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange), Options.sliderHeight.current - 2, Options.color_menuControlBackground.color.ToFloatArray());
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + (Options.menuBorder.current * 2), Options.sliderWidth.current, Options.sliderHeight.current, value->enabled ? white10 : white05);
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 2, Options.sliderHeight.current - 2, black10);
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 2 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 4, Options.sliderHeight.current - 4, value->enabled ? white10 : white05);
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange), Options.sliderHeight.current - 2, Options.color_menuControlBackground.color.ToFloatArray());
 
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange) - 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) - 2 + (Options.menuBorder.current * 2), 4, Options.sliderHeight.current + 4, black10);
-	//DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange) + 1 - 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) - 1 + (Options.menuBorder.current * 2), 2, Options.sliderHeight.current + 2, value->enabled ? white10 : white05);
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange) - 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) - 2 + (Options.menuBorder.current * 2), 4, Options.sliderHeight.current + 4, black10);
+	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + ((Options.sliderWidth.current - 2) / (float)(value->max + additiveRange)) * (value->current + additiveRange) + 1 - 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) - 1 + (Options.menuBorder.current * 2), 2, Options.sliderHeight.current + 2, value->enabled ? white10 : white05);
 
 	value->scrollIndex = Options.menuOptionIndex;
 	AddIntMenuOptionToList(value);
@@ -94,15 +94,15 @@ void DrawFloatSlider(const char *text, FloatMenuOption *value, const char *fmt) 
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
 	float additiveRange = value->min >= 0 ? 0 : -value->min;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 	char temp[100];
 	snprintf(temp, sizeof(temp), fmt, value->current);
-	int fmtWidth = 0;//Functions::R_TextWidth(temp, 0x7FFFFFFF, GetFontForIndex(Options.menuFontIndex.current), GetFontForIndex(Options.menuFontIndex.current)->pixelHeight, 0, 0) * Options.menuFontSize.current;
-	//DrawText(temp, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - fmtWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	int fmtWidth = R_TextWidth(temp, 0x7FFFFFFF, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
+	DrawText(temp, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - fmtWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + (Options.menuBorder.current * 2), Options.sliderWidth.current, Options.sliderHeight.current, value->enabled ? white10 : white05);
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 2, Options.sliderHeight.current - 2, black10);
@@ -121,11 +121,11 @@ void DrawStringSlider(const char *text, IntMenuOption *value, const char *string
 	Options.menuMaxScroll++;
 
 	float *textColor = value->enabled ? (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (value->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	int stringWidth = 0;//Functions::R_TextWidth(string, 0x7FFFFFFF, GetFontForIndex(Options.menuFontIndex.current), GetFontForIndex(Options.menuFontIndex.current)->pixelHeight, 0, 0) * Options.menuFontSize.current;
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	int stringWidth = R_TextWidth(string, 0x7FFFFFFF, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
-	//DrawText(string, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - stringWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
+	DrawText(string, Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 10 - stringWidth, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + (Options.menuBorder.current * 2), Options.sliderWidth.current, Options.sliderHeight.current, value->enabled ? white10 : white05);
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.sliderWidth.current - 5 + 1, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.sliderHeight.current) / 2) + 1 + (Options.menuBorder.current * 2), Options.sliderWidth.current - 2, Options.sliderHeight.current - 2, black10);
@@ -144,9 +144,9 @@ void DrawColorSubMenuButton(const char *text, ColorMenuOption *value, SubMenuMen
 	Options.menuMaxScroll++;
 
 	float *textColor = subValue->enabled ? (subValue->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray() : Options.color_menuText.color.ToFloatArray()) : (subValue->scrollIndex == Options.menuScroll ? Options.color_menuScroller.color.ToFloatArray(true, 0.5f) : Options.color_menuText.color.ToFloatArray(true, 0.5f));
-	float textHeight = 0;//GetFontForIndex(Options.menuFontIndex.current)->pixelHeight * Options.menuFontSize.current;
+	float textHeight = R_TextHeight(R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0)) * Options.menuFontSize.current;
 
-	//DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), textColor, Options.menuFontSize.current, GetFontForIndex(Options.menuFontIndex.current));
+	DrawText(text, Options.menuX.current + Options.menuBorder.current + 5, Options.menuY.current + textHeight + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + (Options.menuBorder.current * 2), Options.menuFontSize.current, textColor, R_RegisterFont(FontForIndex(Options.menuFontIndex.current), 0));
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.boxSize.current - 5, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.boxSize.current) / 2) + (Options.menuBorder.current * 2), Options.boxSize.current, Options.boxSize.current, black10);
 	DrawShader(Options.menuX.current + Options.menuWidth.current - Options.menuBorder.current - Options.boxSize.current - 5 + 2, Options.menuY.current + Options.menuTabHeight + (Options.menuOptionIndex * textHeight) + ((textHeight - Options.boxSize.current) / 2) + (Options.menuBorder.current * 2) + 2, Options.boxSize.current - 4, Options.boxSize.current - 4, value->color.ToFloatArray());
 
@@ -184,9 +184,10 @@ void DrawMenuText() {
 		DrawIntSlider("menuY", &Options.menuY);
 		DrawIntSlider("menuWidth", &Options.menuWidth);
 		DrawIntSlider("menuHeight", &Options.menuHeight);
+		DrawIntSlider("menuScrollerInitialDelay", &Options.menuScrollerInitialDelay, "%i0ms");
 		DrawIntSlider("menuScrollerDelay", &Options.menuScrollerDelay, "%i0ms");
 		DrawFloatSlider("menuFontSize", &Options.menuFontSize, "%.3f");
-		//DrawIntSlider("menuFontIndex", &Options.menuFontIndex, GetFontNameForIndex(Options.menuFontIndex.current));
+		DrawIntSlider("menuFontIndex", &Options.menuFontIndex, FontDisplayNameForIndex(Options.menuFontIndex.current));
 		DrawIntSlider("boxSize", &Options.boxSize);
 		DrawIntSlider("sliderHeight", &Options.sliderHeight);
 		DrawIntSlider("sliderWidth", &Options.sliderWidth);
@@ -224,7 +225,7 @@ void DrawMenu() {
 	DrawBackgroundShader();
 	DrawMenuText();
 
-	//DrawText("Advanced Warfare", Options.menuX.current, Options.menuY.current + 0x40, Options.color_menuText.color.ToFloatArray(), Options.menuFontSize.current, Cache::main_bold);
+	DrawText("Advanced Warfare", Options.menuX.current + 10, Options.menuY.current + 0x40, Options.menuFontSize.current, Options.color_menuText.color.ToFloatArray());
 }
 
 void Select() {
@@ -259,6 +260,7 @@ void GoBack() {
 
 int previousButton;
 int ticks = 0;
+int speed = 0;
 ScePadData padData;
 void MonitorButtons() {
 	uartprintf("MonitorButtons() -> THREAD STARTED!\n");
@@ -287,6 +289,7 @@ void MonitorButtons() {
 					Options.menuScroll++;
 				if (Options.menuScroll == Options.menuMaxScroll)
 					Options.menuScroll = 0;
+				speed = 0;
 			}
 
 			if (padData.buttons & SCE_PAD_BUTTON_UP) {
@@ -294,6 +297,7 @@ void MonitorButtons() {
 					Options.menuScroll--;
 				if (Options.menuScroll == -1)
 					Options.menuScroll = Options.menuMaxScroll - 1;
+				speed = 0;
 			}
 
 			if (padData.buttons & SCE_PAD_BUTTON_R1 && !Options.isInSubMenu) {
@@ -344,11 +348,18 @@ void MonitorButtons() {
 		}
 
 		if (padData.buttons & SCE_PAD_BUTTON_DOWN && padData.analogButtons.l2 < 100) {
-			if (ticks < Options.menuScrollerDelay.current) {
+			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
 				continue;
 			}
+			if (speed < Options.menuScrollerDelay.current) {
+				speed++;
+				Sleep(10);
+				continue;
+			}
+			else
+				speed = 0;
 
 			if (Options.menuScroll < Options.menuMaxScroll)
 				Options.menuScroll++;
@@ -357,11 +368,18 @@ void MonitorButtons() {
 		}
 
 		if (padData.buttons & SCE_PAD_BUTTON_UP) {
-			if (ticks < Options.menuScrollerDelay.current) {
+			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
 				continue;
 			}
+			if (speed < Options.menuScrollerDelay.current) {
+				speed++;
+				Sleep(10);
+				continue;
+			}
+			else
+				speed = 0;
 
 			if (Options.menuScroll > -1)
 				Options.menuScroll--;
@@ -370,7 +388,7 @@ void MonitorButtons() {
 		}
 
 		if (padData.buttons & SCE_PAD_BUTTON_RIGHT) {
-			if (ticks < Options.menuScrollerDelay.current) {
+			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
 				continue;
@@ -381,7 +399,7 @@ void MonitorButtons() {
 		}
 
 		if (padData.buttons & SCE_PAD_BUTTON_LEFT) {
-			if (ticks < Options.menuScrollerDelay.current) {
+			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
 				continue;

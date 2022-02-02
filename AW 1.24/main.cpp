@@ -44,6 +44,7 @@ void DetectGame() {
 	if (!strcmp((char *)0x0000000000BFB355, "multiplayer")) {
 		executionAddress = 0x0000000000D43FF0;
 		NewRunID();
+		Sleep(100);
 
 		ScePthread thread1;
 		scePthreadCreate(&thread1, NULL, (void *)RgbThread, NULL, "rgb_thread");
@@ -56,7 +57,7 @@ void DetectGame() {
 		sceUserServiceGetUserName(userId, userName, 20);
 
 		char welcomeMessage[100];
-		snprintf(welcomeMessage, sizeof(welcomeMessage), "Welcome %s!\n[AW 1.24] - Loaded\n\nHold  and press .", userName);
+		snprintf(welcomeMessage, sizeof(welcomeMessage), "Welcome %s!\n[AW 1.24] - Loaded\n\nHold  and press .", userName);
 		sceSysUtilSendSystemNotificationWithText(222, welcomeMessage);
 
 		Functions::Init();

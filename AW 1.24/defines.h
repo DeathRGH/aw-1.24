@@ -5,7 +5,7 @@
 
 #define MAX_CLIENTS 18
 #define MAX_ENTITYS 2048
-#define NUM_FONTS 8
+#define NUM_FONTS 6
 #define NUM_BONES 20
 
 #define ScrPlace (ScreenPlacement *)0x00//vHandler->defs.addr_CustomScreenPlacement

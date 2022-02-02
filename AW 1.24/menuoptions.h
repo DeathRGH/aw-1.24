@@ -34,6 +34,7 @@ struct Options_t {
 	IntMenuOption menuBorder;
 	IntMenuOption menuFontIndex;
 	FloatMenuOption menuFontSize;
+	IntMenuOption menuScrollerInitialDelay;
 	IntMenuOption menuScrollerDelay;
 
 	IntMenuOption boxSize;
