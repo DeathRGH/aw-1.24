@@ -14,6 +14,7 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="hooks.h" />
     <ClInclude Include="host.h" />
+    <ClInclude Include="host_huds.h" />
     <ClInclude Include="imports.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="library_functions.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="global.cpp" />
     <ClCompile Include="hooks.cpp" />
     <ClCompile Include="host.cpp" />
+    <ClCompile Include="host_huds.cpp" />
     <ClCompile Include="imports.cpp" />
     <ClCompile Include="library_functions.cpp" />
     <ClCompile Include="main.cpp" />
@@ -52,14 +54,14 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{89266DB0-62C7-4919-B44D-C63BFB128E55}</ProjectGuid>
     <RootNamespace>BO30100</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>AW 1.24</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

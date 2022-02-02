@@ -12,6 +12,7 @@
 #include "menuoptions.h"
 #include "types.h"
 #include "utility.h"
+#include "host_huds.h"
 
 static int step;
 void RgbThread() {
@@ -40,6 +41,18 @@ void RgbThread() {
 	uartprintf("RgbThread() -> THREAD ENDED!\n");
 }
 
+void testAllClientHuds() {
+	HudElem_DestroyAll();
+	game_hudelem_s* textTest = precacheElem(0x7FF);
+	game_hudelem_s* testTypewriter = precacheElem(0x7FF);
+	game_hudelem_s* testHud = precacheElem(0x7FF);
+
+	Hud(testTypewriter).setText((char*)"", 6, 1.0f, 300, 50, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
+	Hud(testTypewriter).typeWriterText((char*)"Typewriter text on AW 1.24");
+	Hud(textTest).setText((char*)"Testing all client text on AW", 6, 1.0f, 200, 150, 5, 0, 10, 255, 255, 255, 255, 204, 0, 221, 255);
+	Hud(testHud).setShader("white", 250, 50, 200, 150, 5, 0, 0, 0, 0, 0, 175);
+}
+
 void DetectGame() {
 	if (!strcmp((char *)0x0000000000BFB355, "multiplayer")) {
 		executionAddress = 0x0000000000D43FF0;
@@ -62,6 +75,8 @@ void DetectGame() {
 
 		Functions::Init();
 		Menu::Init();
+
+		testAllClientHuds();
 
 		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
