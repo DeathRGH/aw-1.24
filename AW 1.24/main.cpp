@@ -124,6 +124,8 @@ void Scr_Notify_Hook(gentity_s *ent, scr_string_t stringValue, unsigned int para
 }
 
 void R_EndFrame_Hook() {
+
+	//reversed below
 	R_GetCommandBuffer((GfxRenderCommand)0, 4);
 	*(uint64_t *)((*(uint64_t *)(*(uint64_t *)0x000000000CA50200 + 0x546A40)) + 0x18) = 0;
 	*(uint64_t *)((*(uint64_t *)(*(uint64_t *)0x000000000CA50200 + 0x546A40)) + 0x10) = 0;
@@ -154,7 +156,7 @@ void DetectGame() {
 		Functions::Init();
 		Menu::Init();
 
-		//memcpy((void *)vHandler->patches.addr_LobbyDebug, "\xE9\xA9\x00\x00\x00\x90", 6); //enable LobbyDebug_Draw
+		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
 		//restore CL_Disconnect
 		//memcpy((void *)0xB6F7F0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x83\xEC\x68", 17);
