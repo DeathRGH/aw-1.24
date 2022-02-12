@@ -50,6 +50,11 @@ struct lua_State {
 	//...
 };
 
+struct Material {
+	const char *name;
+	//...
+};
+
 struct LUIElement {
 	uintptr_t u1;
 	uintptr_t u2;
@@ -66,11 +71,6 @@ struct LUIElement {
 	char pad1[0x40];	//0x40
 	Material *material;	//0x80
 	Font_s *font;		//0x88
-	//...
-};
-
-struct Material {
-	const char *name;
 	//...
 };
 
