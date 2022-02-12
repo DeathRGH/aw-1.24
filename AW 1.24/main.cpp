@@ -98,9 +98,9 @@ void DetectGame() {
 		//memcpy((void *)0xB6F7F0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x83\xEC\x68", 17);
 		//Hooks::CL_Disconnect_Stub = (Hooks::CL_Disconnect_t)DetourFunction(0xB6F7F0, (void *)Hooks::CL_Disconnect_Hook, 17);
 
-		//restore
-		//memcpy((void *)0x0000000000905730, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x49\x89\xF7\x49\x89\xFC", 17);
-		//Menus_FindByName_Stub = (Menus_FindByName_t)DetourFunction(0x0000000000905730, (void *)Menus_FindByName_Hook, 17);
+		//restore LUIElement_Render
+		memcpy((void *)0x00000000004D6EC0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\xD8\x00\x00\x00", 20);
+		Hooks::LUIElement_Render_Stub = (Hooks::LUIElement_Render_t)DetourFunction(0x00000000004D6EC0, (void *)Hooks::LUIElement_Render_Hook, 20);
 
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);

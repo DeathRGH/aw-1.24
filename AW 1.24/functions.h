@@ -16,6 +16,8 @@ typedef uint64_t(*G_MaterialIndex_t)(const char *material);
 typedef game_hudelem_t(*HudElem_Alloc_t)(int clientNum, int teamNum);
 typedef void(*HudElem_DestroyAll_t)();
 
+typedef void(*LUI_Interface_DrawLine_t)(LUIElement *, float x1, float y1, float x2, float y2, unsigned char, float, float r, float g, float b, float a);
+
 typedef Material *(*Material_RegisterHandle_t)(const char *name, int imageTrack);
 
 typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t);
@@ -62,6 +64,8 @@ extern G_MaterialIndex_t G_MaterialIndex;
 
 extern HudElem_Alloc_t HudElem_Alloc;
 extern HudElem_DestroyAll_t HudElem_DestroyAll;
+
+extern LUI_Interface_DrawLine_t LUI_Interface_DrawLine;
 
 extern Material_RegisterHandle_t Material_RegisterHandle;
 

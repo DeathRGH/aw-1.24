@@ -12,6 +12,8 @@ G_MaterialIndex_t G_MaterialIndex;
 HudElem_Alloc_t HudElem_Alloc;
 HudElem_DestroyAll_t HudElem_DestroyAll;
 
+LUI_Interface_DrawLine_t LUI_Interface_DrawLine;
+
 Material_RegisterHandle_t Material_RegisterHandle;
 
 PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;

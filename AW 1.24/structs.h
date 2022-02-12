@@ -22,11 +22,14 @@ enum LocalClientNum_t : int {
 	LOCAL_CLIENT_COUNT = 5
 };
 
+enum LUI_QuadRenderMode : int {
+	//...
+};
+
 enum svscmd_type : int {
 	SV_CMD_CAN_IGNORE = 0,
 	SV_CMD_RELIABLE = 1
 };
-
 
 //
 
@@ -40,13 +43,40 @@ struct Font_s { // 0x28
 };
 
 struct gentity_s {
+	//...
+};
 
+struct lua_State {
+	//...
+};
+
+struct LUIElement {
+	uintptr_t u1;
+	uintptr_t u2;
+	uintptr_t u3;
+	uintptr_t u4;
+	int u5;
+	float width;		//0x24
+	float height;		//0x28
+	float u6;
+	float x1;			//0x30
+	float y1;			//0x34
+	float x2;			//0x38
+	float y2;			//0x3C
+	char pad1[0x40];	//0x40
+	Material *material;	//0x80
+	Font_s *font;		//0x88
+	//...
 };
 
 struct Material {
 	const char *name;
+	//...
 };
 
+struct RootUserData {
+	//...
+};
 
 
 

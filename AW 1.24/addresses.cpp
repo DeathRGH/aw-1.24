@@ -15,6 +15,8 @@ void Init() {
 	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
 	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
 
+	LUI_Interface_DrawLine = (LUI_Interface_DrawLine_t)0x00000000004F2CA0;
+
 	Material_RegisterHandle = (Material_RegisterHandle_t)0x0000000000A058D0;
 
 	PlayerCmd_AllowBoostJump = (PlayerCmd_AllowBoostJump_t)0x000000000070F100;
