@@ -34,7 +34,7 @@ void Init() {
 
 	SetupInt(&Options.boxSize, 20, 20, 100, 5);
 	SetupInt(&Options.sliderWidth, 100, 100, 200, 20);
-	SetupInt(&Options.sliderHeight, 15, 15, 50, 4);
+	SetupInt(&Options.sliderHeight, 13, 13, 50, 4);
 
 	SetupBool(&Options.debug_godmode, true);
 	SetupBool(&Options.debug_infAmmo, true);

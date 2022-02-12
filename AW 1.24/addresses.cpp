@@ -9,6 +9,11 @@ void Init() {
 
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
+	G_LocalizedStringIndex = (G_LocalizedStringIndex_t)0x0000000000442410;
+	G_MaterialIndex = (G_MaterialIndex_t)0x000000000043C4A0;
+
+	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
+	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
 
 	Material_RegisterHandle = (Material_RegisterHandle_t)0x0000000000A058D0;
 
@@ -43,10 +48,7 @@ void Init() {
 
 	SV_GameSendServerCommand = (SV_GameSendServerCommand_t)0x000000000089CD80;
 
-	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
-	G_MaterialIndex = (G_MaterialIndex_t)0x000000000043C4A0;
-	G_LocalizedStringIndex = (G_LocalizedStringIndex_t)0x0000000000442410;
-	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
+	
 	
 	
 	//AimTarget_GetTagPos = (AimTarget_GetTagPos_t)vHandler->addresses.addr_AimTarget_GetTagPos;

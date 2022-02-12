@@ -265,7 +265,7 @@ int ticks = 0;
 int speed = 0;
 ScePadData padData;
 void MonitorButtons() {
-	uartprintf("MonitorButtons() -> THREAD STARTED!\n");
+	uartprintf("[AW 1.24] MonitorButtons() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
 		if (!userPadHandle) {
 			Sleep(10);
@@ -414,11 +414,11 @@ void MonitorButtons() {
 		Sleep(10);
 	}
 
-	uartprintf("MonitorButtons() -> THREAD ENDED!\n");
+	uartprintf("[AW 1.24] MonitorButtons() -> THREAD ENDED!\n");
 }
 
 void LoopSettings() {
-	uartprintf("LoopSettings() -> THREAD STARTED!\n");
+	uartprintf("[AW 1.24] LoopSettings() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
 		Host::Lobby::Godmode(Options.debug_godmode.state);
 		Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
@@ -428,7 +428,7 @@ void LoopSettings() {
 		Sleep(10);
 	}
 
-	uartprintf("LoopSettings() -> THREAD ENDED!\n");
+	uartprintf("[AW 1.24] LoopSettings() -> THREAD ENDED!\n");
 }
 
 void DrawDebug() {
