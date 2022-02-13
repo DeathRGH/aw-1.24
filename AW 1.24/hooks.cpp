@@ -33,9 +33,6 @@ LUI_Interface_DrawTextWithCursor_t LUI_Interface_DrawTextWithCursor = (LUI_Inter
 typedef void(*LUI_Interface_DrawBoundingBox_t)(LUIElement *, lua_State *);
 LUI_Interface_DrawBoundingBox_t LUI_Interface_DrawBoundingBox = (LUI_Interface_DrawBoundingBox_t)0x00000000004F2E90;
 
-typedef LUIElement *(*LUI_GetRootElement_t)(const char *, lua_State *);
-LUI_GetRootElement_t LUI_GetRootElement = (LUI_GetRootElement_t)0x00000000004CF350;
-
 void LUI_CoD_Render_Hook(LocalClientNum_t rdi, int rsi) {
 	LUI_CoD_Render_Stub(rdi, rsi);
 
@@ -44,7 +41,7 @@ void LUI_CoD_Render_Hook(LocalClientNum_t rdi, int rsi) {
 	LUI_Interface_DrawLine(rootElem, 500.0f, 0.0f, 0.0f, 500.0f, 0, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
 
 	//LUI_Interface_DrawTextWithCursor(rootElem, 100.0f, 100.0f, 10.0f, 10.0f, 10.0f, 10.0f, "LUI Test Text", R_RegisterFont("fonts/bodyFont", 0), 10.0f, 10.0f, 20, 0, lua_state);
-	//LUI_Interface_DrawRectangle(rootElem, 100.0f, 200.0f, 300.0f, 200.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, Material_RegisterHandle("white", 0), red10, (LUI_QuadRenderMode)0, true, lua_state);
+	//LUI_Interface_DrawRectangle(rootElem, 100.0f, 200.0f, 300.0f, 500.0f, 100.0f, 200.0f, 100.0f, 200.0f, 300.0f, 400.0f, 600.0f, Material_RegisterHandle("white", 0), red10, (LUI_QuadRenderMode)0, true, lua_state);
 }
 
 void LUI_Interface_DebugPrint_Hook(const char *fmt, ...) {
