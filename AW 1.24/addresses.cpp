@@ -10,9 +10,17 @@ void Init() {
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00000000006A4570;
 
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
+	G_FreeEntity = (G_FreeEntity_t)0x000000000076BA20;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
+	G_GetPlayerViewOrigin = (G_GetPlayerViewOrigin_t)0x0000000000708BB0;
 	G_LocalizedStringIndex = (G_LocalizedStringIndex_t)0x0000000000442410;
+	G_LocationalTrace = (G_LocationalTrace_t)0x0000000000726550;
 	G_MaterialIndex = (G_MaterialIndex_t)0x000000000043C4A0;
+	G_SetAngle = (G_SetAngle_t)0x000000000076C230;
+	G_GetOrigin = (G_GetOrigin_t)0x000000000076C2D0;
+	G_SetModel = (G_SetModel_t)0x000000000076A740;
+	G_SetOrigin = (G_SetOrigin_t)0x000000000076C0B0;
+	G_Spawn = (G_Spawn_t)0x000000000076B810;
 
 	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
 	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
@@ -53,7 +61,14 @@ void Init() {
 	SL_ConvertToString = (SL_ConvertToString_t)0x000000000084AF50;
 	SL_GetString = (SL_GetString_t)0x000000000084B820;
 
+	SP_script_model = (SP_script_model_t)0x0000000000760F40;
+
 	SV_GameSendServerCommand = (SV_GameSendServerCommand_t)0x000000000089CD80;
+	SV_LinkEntity = (SV_LinkEntity_t)0x00000000008B74B0;
+	SV_SetBrushModel = (SV_SetBrushModel_t)0x000000000089CFB0;
+	SV_UnlinkEntity = (SV_UnlinkEntity_t)0x00000000008B7460;
+
+	Trace_GetEntityHitId = (Trace_GetEntityHitId_t)0x00000000007ED970;
 
 	
 	

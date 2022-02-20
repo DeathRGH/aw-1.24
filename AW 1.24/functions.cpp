@@ -7,9 +7,17 @@ Cbuf_AddText_t Cbuf_AddText;
 DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
+G_FreeEntity_t G_FreeEntity;
 G_GetAngles_t G_GetAngles;
+G_GetOrigin_t G_GetOrigin;
+G_GetPlayerViewOrigin_t G_GetPlayerViewOrigin;
 G_LocalizedStringIndex_t G_LocalizedStringIndex;
+G_LocationalTrace_t G_LocationalTrace;
 G_MaterialIndex_t G_MaterialIndex;
+G_SetAngle_t G_SetAngle;
+G_SetModel_t G_SetModel;
+G_SetOrigin_t G_SetOrigin;
+G_Spawn_t G_Spawn;
 
 HudElem_Alloc_t HudElem_Alloc;
 HudElem_DestroyAll_t HudElem_DestroyAll;
@@ -50,7 +58,14 @@ Scr_NotifyNum_t Scr_NotifyNum;
 SL_ConvertToString_t SL_ConvertToString;
 SL_GetString_t SL_GetString;
 
+SP_script_model_t SP_script_model;
+
 SV_GameSendServerCommand_t SV_GameSendServerCommand;
+SV_LinkEntity_t SV_LinkEntity;
+SV_SetBrushModel_t SV_SetBrushModel;
+SV_UnlinkEntity_t SV_UnlinkEntity;
+
+Trace_GetEntityHitId_t Trace_GetEntityHitId;
 
 
 

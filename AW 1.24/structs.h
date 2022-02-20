@@ -57,7 +57,7 @@ enum XAssetType
 	//ASSET_TYPE_GLASSWORLD = 0x15,
 	//ASSET_TYPE_PATHDATA = 0x16,
 	//ASSET_TYPE_VEHICLE_TRACK = 0x17,
-	ASSET_TYPE_MAP_ENTS = 0x18, //SV_SpawnServer + 0xABE   (call Com_LoadWorld)
+	ASSET_TYPE_MAP_ENTS = 0x18, //SV_SpawnServer + 0xABE   call Com_LoadWorld
 	//ASSET_TYPE_FXWORLD = 0x19,
 	//ASSET_TYPE_GFXWORLD = 0x1A,
 	//ASSET_TYPE_LIGHT_DEF = 0x1B,
@@ -112,7 +112,25 @@ struct Font_s { // 0x28
 	uintptr_t u3;
 };
 
-struct gentity_s {
+struct gclient_s {
+	//...
+	int serverTime;	//0x4C
+	//...
+};
+
+struct gentity_s { //0x2E0
+	int number;			//0x00
+	int type;			//0x04
+	//...
+	float angles[3];	//0x8C
+	float origin[3];	//0x138
+	//...
+	gclient_s *client;	//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
+	//...
+	short modelIndex;	//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
+	//...
+	int health;			//0x1D0
+	int maxHealth;		//0x1D4
 	//...
 };
 
@@ -144,12 +162,20 @@ struct LUIElement {
 	//...
 };
 
+struct playerState_s {
+	//...
+};
+
 struct RootUserData {
 	//...
 };
 
-struct UiContext {
+struct trace_t {
+	//...
+};
 
+struct UiContext {
+	//...
 };
 
 

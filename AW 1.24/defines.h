@@ -11,6 +11,8 @@
 #define ScrPlace (ScreenPlacement *)0x00//vHandler->defs.addr_CustomScreenPlacement
 #define bg_weaponCompleteDefs 0x3DF7400 //
 
+#define gentity_t 0x00000000064293D0
+#define gentity_size 0x2E0
 #define lua_state (lua_State *)(*(uint64_t *)0x00000000025A6920)
 #define UI_Context (UiContext *)0x000000000B80C540
 
