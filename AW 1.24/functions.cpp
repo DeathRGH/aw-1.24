@@ -4,6 +4,8 @@ AngleVectors_t AngleVectors;
 
 Cbuf_AddText_t Cbuf_AddText;
 
+DB_FindXAssetHeader_t DB_FindXAssetHeader;
+
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 G_GetAngles_t G_GetAngles;
 G_LocalizedStringIndex_t G_LocalizedStringIndex;
@@ -16,6 +18,8 @@ LUI_GetRootElement_t LUI_GetRootElement;
 LUI_Interface_DrawLine_t LUI_Interface_DrawLine;
 
 Material_RegisterHandle_t Material_RegisterHandle;
+
+Menus_OpenByName_t Menus_OpenByName;
 
 PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
 PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
@@ -68,8 +72,6 @@ CG_DrawRotatedPicPhysical_t CG_DrawRotatedPicPhysical;
 //CG_TracePoint_t CG_TracePoint;
 
 CL_DrawText_t CL_DrawText;
-
-DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 R_AddCmdDrawQuadPicW_t R_AddCmdDrawQuadPicW;
 

@@ -36,9 +36,9 @@ LUI_Interface_DrawBoundingBox_t LUI_Interface_DrawBoundingBox = (LUI_Interface_D
 void LUI_CoD_Render_Hook(LocalClientNum_t rdi, int rsi) {
 	LUI_CoD_Render_Stub(rdi, rsi);
 
-	LUIElement *rootElem = LUI_GetRootElement("UIRootFull", lua_state);
-	LUI_Interface_DrawLine(rootElem, 0.0f, 0.0f, 500.0f, 500.0f, 0, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
-	LUI_Interface_DrawLine(rootElem, 500.0f, 0.0f, 0.0f, 500.0f, 0, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
+	//LUIElement *rootElem = LUI_GetRootElement("UIRootFull", lua_state);
+	//LUI_Interface_DrawLine(rootElem, 0.0f, 0.0f, 500.0f, 500.0f, 0, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+	//LUI_Interface_DrawLine(rootElem, 500.0f, 0.0f, 0.0f, 500.0f, 0, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
 
 	//LUI_Interface_DrawTextWithCursor(rootElem, 100.0f, 100.0f, 10.0f, 10.0f, 10.0f, 10.0f, "LUI Test Text", R_RegisterFont("fonts/bodyFont", 0), 10.0f, 10.0f, 20, 0, lua_state);
 	//LUI_Interface_DrawRectangle(rootElem, 100.0f, 200.0f, 300.0f, 500.0f, 100.0f, 200.0f, 100.0f, 200.0f, 300.0f, 400.0f, 600.0f, Material_RegisterHandle("white", 0), red10, (LUI_QuadRenderMode)0, true, lua_state);

@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+#include "debug.h"
 #include "defines.h"
 #include "detour.h"
 #include "functions.h"
@@ -53,17 +54,6 @@ void TestAllClientHuds() {
 	Hud(testHud).SetShader("white", 250, 50, 200, 150, 5, 0, 0, 0, 0, 0, 175);
 }
 
-
-
-typedef void(*Menus_OpenByName_t)(void *, char const *);
-Menus_OpenByName_t Menus_OpenByName = (Menus_OpenByName_t)0x0000000000907B30;
-
-/*void Menus_OpenByName_Hook(const void *rdi, char const *rsi) {
-	uartprintf("[AW 1.24] Menus_OpenByName: \"%s\"\n", rsi);
-	
-	Menus_OpenByName_Stub(rdi, rsi);
-}*/
-
 void DetectGame() {
 	if (!strcmp((char *)0x0000000000BFB355, "multiplayer")) {
 		executionAddress = 0x0000000000D43FF0;
@@ -109,6 +99,11 @@ void DetectGame() {
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
+
+		//uint64_t assetHeader = DB_FindXAssetHeader(XAssetType::ASSET_TYPE_MAP_ENTS, "maps/mp/mp_prison.d3dbsp", 0);
+		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
+
+		PrintLoadedZones();
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");
