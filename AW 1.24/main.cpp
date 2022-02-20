@@ -7,6 +7,7 @@
 #include "functions.h"
 #include "global.h"
 #include "hooks.h"
+#include "host.h"
 #include "host_huds.h"
 #include "imports.h"
 #include "library_functions.h"
@@ -103,7 +104,11 @@ void DetectGame() {
 		//uint64_t assetHeader = DB_FindXAssetHeader(XAssetType::ASSET_TYPE_MAP_ENTS, "maps/mp/mp_prison.d3dbsp", 0);
 		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
 
-		PrintLoadedZones();
+		//PrintLoadedZones();
+
+		float pos[3];
+		G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
+		Host::Entity::SpawnScriptModel("prop_flag_neutral", pos);
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");

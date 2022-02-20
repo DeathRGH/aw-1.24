@@ -2,7 +2,6 @@
 
 #include "functions.h"
 #include "imports.h"
-#include "structs.h"
 
 NAMESPACE(Host)
 
@@ -37,6 +36,29 @@ void Godmode(bool state) {
 
 void InfiniteAmmo(bool state) {
 	memcpy((void *)0x00000000005768EF, state ? "\x90\x90\x90\x90\x90" : "\x44\x29\x7C\x81\x08", 5);
+}
+
+END
+NAMESPACE(Entity)
+
+gentity_s *GetEntity(int i) {
+	return (gentity_s *)(gentity_t + (i * gentity_size));
+}
+
+gentity_s *SpawnScriptModel(const char *modelName, float *origin) {
+	gentity_s *entity = G_Spawn();
+	if (entity) {
+		if (modelName)
+			G_SetModel(entity, modelName);
+
+		if (origin)
+			G_SetOrigin(entity, origin);
+
+		//entity->spawnflags = 0;
+		SP_script_model(entity);
+	}
+
+	return entity;
 }
 
 END

@@ -4,16 +4,24 @@
 #include "structs.h"
 #include "types.h"
 
-typedef void(*AngleVectors_t)(const float *, float *, float *, float *);
+typedef void(*AngleVectors_t)(const float *angles, float *forward, float *right, float *up);
 
 typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text);
 
-typedef uint64_t(*DB_FindXAssetHeader_t)(XAssetType, const char *, int);
+typedef uint64_t(*DB_FindXAssetHeader_t)(XAssetType type, const char *name, int allowCreateDefault);
 
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
-typedef void(*G_GetAngles_t)(LocalClientNum_t, short, float *);
+typedef void(*G_FreeEntity_t)(gentity_s *);
+typedef void(*G_GetAngles_t)(LocalClientNum_t localClientNum, short entIndex, float *outAngles);
+typedef void(*G_GetOrigin_t)(LocalClientNum_t localClientNum, short entIndex, float *outPosition);
+typedef void(*G_GetPlayerViewOrigin_t)(const playerState_s *, float *);
 typedef uint64_t(*G_LocalizedStringIndex_t)(const char *text);
+typedef void(*G_LocationalTrace_t)(trace_t *results, const float *start, const float *end, short passEntityNum, int contentmask, unsigned char *priorityMap);
 typedef uint64_t(*G_MaterialIndex_t)(const char *material);
+typedef void(*G_SetAngle_t)(gentity_s *, const float *);
+typedef void(*G_SetModel_t)(gentity_s *, const char *);
+typedef void(*G_SetOrigin_t)(gentity_s *, const float *);
+typedef gentity_s *(*G_Spawn_t)();
 
 typedef game_hudelem_t(*HudElem_Alloc_t)(int clientNum, int teamNum);
 typedef void(*HudElem_DestroyAll_t)();
@@ -25,16 +33,16 @@ typedef Material *(*Material_RegisterHandle_t)(const char *name, int imageTrack)
 
 typedef void(*Menus_OpenByName_t)(UiContext *, const char *);
 
-typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowDodge_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowHighJumpDrop_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowLadder_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowMantle_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowPowerSlide_t)(scr_entref_t);
-typedef void(*PlayerCmd_AllowSprint_t)(scr_entref_t);
-typedef void(*PlayerCmd_ForceMantle_t)(scr_entref_t);
-typedef void(*PlayerCmd_SetClientDvar_t)(scr_entref_t);
-typedef void(*PlayerCmd_setOrigin_t)(scr_entref_t);
+typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowDodge_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowHighJumpDrop_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowLadder_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowMantle_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowPowerSlide_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_AllowSprint_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_ForceMantle_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_SetClientDvar_t)(scr_entref_t entref);
+typedef void(*PlayerCmd_setOrigin_t)(scr_entref_t entref);
 
 typedef void(*R_AddCmdDrawStretchPic_t)(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, Material *material);
 typedef void(*R_AddCmdDrawText_t)(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style);
@@ -45,16 +53,23 @@ typedef int(*R_TextHeight_t)(Font_s *font);
 typedef int(*R_TextWidth_t)(const char *text, int maxChars, Font_s *font);
 
 typedef void(*Scr_AddEntity_t)(const gentity_s *);
-typedef void(*Scr_AddInt_t)(int);
-typedef void(*Scr_AddString_t)(const char *);
-typedef void(*Scr_AddVector_t)(const float *);
+typedef void(*Scr_AddInt_t)(int value);
+typedef void(*Scr_AddString_t)(const char *value);
+typedef void(*Scr_AddVector_t)(const float *value);
 typedef void(*Scr_MagicBullet_t)();
 typedef void(*Scr_NotifyNum_t)(int entnum, unsigned int classnum, scr_string_t stringValue, unsigned int paramcount);
 
 typedef const char *(*SL_ConvertToString_t)(scr_string_t stringValue);
-typedef scr_string_t(*SL_GetString_t)(const char *, unsigned int);
+typedef scr_string_t(*SL_GetString_t)(const char *str, unsigned int user);
+
+typedef void(*SP_script_model_t)(gentity_s *);
 
 typedef void(*SV_GameSendServerCommand_t)(signed char clientNum, svscmd_type type, const char *text);
+typedef void(*SV_LinkEntity_t)(gentity_s *);
+typedef void(*SV_SetBrushModel_t)(gentity_s *);
+typedef void(*SV_UnlinkEntity_t)(gentity_s *);
+
+typedef unsigned short(*Trace_GetEntityHitId_t)(const trace_t *trace);
 
 //
 
@@ -65,9 +80,17 @@ extern Cbuf_AddText_t Cbuf_AddText;
 extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 extern G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
+extern G_FreeEntity_t G_FreeEntity;
 extern G_GetAngles_t G_GetAngles;
+extern G_GetOrigin_t G_GetOrigin;
+extern G_GetPlayerViewOrigin_t G_GetPlayerViewOrigin;
 extern G_LocalizedStringIndex_t G_LocalizedStringIndex;
+extern G_LocationalTrace_t G_LocationalTrace;
 extern G_MaterialIndex_t G_MaterialIndex;
+extern G_SetAngle_t G_SetAngle;
+extern G_SetModel_t G_SetModel;
+extern G_SetOrigin_t G_SetOrigin;
+extern G_Spawn_t G_Spawn;
 
 extern HudElem_Alloc_t HudElem_Alloc;
 extern HudElem_DestroyAll_t HudElem_DestroyAll;
@@ -108,7 +131,14 @@ extern Scr_NotifyNum_t Scr_NotifyNum;
 extern SL_ConvertToString_t SL_ConvertToString;
 extern SL_GetString_t SL_GetString;
 
+extern SP_script_model_t SP_script_model;
+
 extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
+extern SV_LinkEntity_t SV_LinkEntity;
+extern SV_SetBrushModel_t SV_SetBrushModel;
+extern SV_UnlinkEntity_t SV_UnlinkEntity;
+
+extern Trace_GetEntityHitId_t Trace_GetEntityHitId;
 
 
 
