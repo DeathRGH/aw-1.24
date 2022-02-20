@@ -14,6 +14,7 @@ G_GetPlayerViewOrigin_t G_GetPlayerViewOrigin;
 G_LocalizedStringIndex_t G_LocalizedStringIndex;
 G_LocationalTrace_t G_LocationalTrace;
 G_MaterialIndex_t G_MaterialIndex;
+G_ModelName_t G_ModelName;
 G_SetAngle_t G_SetAngle;
 G_SetModel_t G_SetModel;
 G_SetOrigin_t G_SetOrigin;

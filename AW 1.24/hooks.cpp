@@ -13,16 +13,8 @@
 
 NAMESPACE(Hooks)
 
-CL_Disconnect_t CL_Disconnect_Stub;
-
 LUI_CoD_Render_t LUI_CoD_Render_Stub;
 LUIElement_Render_t LUIElement_Render_Stub;
-
-void CL_Disconnect_Hook(LocalClientNum_t localClientNum, bool deactivateClient) {
-	CreateThread((void *)PreventCrash, "preventCrash");
-
-	CL_Disconnect_Stub(localClientNum, deactivateClient);
-}
 
 typedef void(*LUI_Interface_DrawRectangle_t)(LUIElement *, float x, float y, float width, float height, float, float, float, float, float, float, float, Material *, float *, LUI_QuadRenderMode, bool, lua_State *);
 LUI_Interface_DrawRectangle_t LUI_Interface_DrawRectangle = (LUI_Interface_DrawRectangle_t)0x00000000004F2650;

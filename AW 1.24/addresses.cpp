@@ -16,6 +16,7 @@ void Init() {
 	G_LocalizedStringIndex = (G_LocalizedStringIndex_t)0x0000000000442410;
 	G_LocationalTrace = (G_LocationalTrace_t)0x0000000000726550;
 	G_MaterialIndex = (G_MaterialIndex_t)0x000000000043C4A0;
+	G_ModelName = (G_ModelName_t)0x000000000043C510;
 	G_SetAngle = (G_SetAngle_t)0x000000000076C230;
 	G_GetOrigin = (G_GetOrigin_t)0x000000000076C2D0;
 	G_SetModel = (G_SetModel_t)0x000000000076A740;

@@ -15,8 +15,11 @@ void InfiniteAmmo(bool state);
 END
 NAMESPACE(Entity)
 
-gentity_s *GetEntity(int i);
+gentity_s *GetEntityPtr(int i);
 gentity_s *SpawnScriptModel(const char *modelName, float *origin);
+
+const char *GetModelNameFromEntity(int i);
+const char *GetModelNameFromEntity(gentity_s *ent);
 
 END
 END

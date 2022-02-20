@@ -85,10 +85,6 @@ void DetectGame() {
 
 		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
-		//restore CL_Disconnect
-		//memcpy((void *)0xB6F7F0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x83\xEC\x68", 17);
-		//Hooks::CL_Disconnect_Stub = (Hooks::CL_Disconnect_t)DetourFunction(0xB6F7F0, (void *)Hooks::CL_Disconnect_Hook, 17);
-
 		//restore LUI_CoD_Render
 		memcpy((void *)0x00000000004F01B0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x41\x89\xF6\x41\x89\xFF", 17);
 		Hooks::LUI_CoD_Render_Stub = (Hooks::LUI_CoD_Render_t)DetourFunction(0x00000000004F01B0, (void *)Hooks::LUI_CoD_Render_Hook, 17);
@@ -101,14 +97,15 @@ void DetectGame() {
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
 
-		//uint64_t assetHeader = DB_FindXAssetHeader(XAssetType::ASSET_TYPE_MAP_ENTS, "maps/mp/mp_prison.d3dbsp", 0);
+		//uint64_t assetHeader = DB_FindXAssetHeader(/*XAssetType::ASSET_TYPE_MAP_ENTS*/(XAssetType)0x1C, "maps/mp/mp_venus.d3dbsp", 0);
 		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
 
 		//PrintLoadedZones();
+		//uartprintf("[AW 1.24] %s", Host::Entity::GetModelNameFromEntity(0));
 
-		float pos[3];
-		G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
-		Host::Entity::SpawnScriptModel("prop_flag_neutral", pos);
+		//float pos[3];
+		//G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
+		//Host::Entity::SpawnScriptModel("dyn_ven_banners_tube_01_intct", pos);
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");

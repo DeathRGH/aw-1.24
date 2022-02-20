@@ -61,7 +61,7 @@ enum XAssetType
 	//ASSET_TYPE_FXWORLD = 0x19,
 	//ASSET_TYPE_GFXWORLD = 0x1A,
 	//ASSET_TYPE_LIGHT_DEF = 0x1B,
-	//ASSET_TYPE_UI_MAP = 0x1C,
+	//ASSET_TYPE_UI_MAP = 0x1C, //0x1C pf1_auto stuff
 	ASSET_TYPE_FONT = 0x21,
 	//ASSET_TYPE_MENULIST = 0x1E,
 	//ASSET_TYPE_MENU = 0x1F,
@@ -119,14 +119,15 @@ struct gclient_s {
 };
 
 struct gentity_s { //0x2E0
-	int number;			//0x00
-	int type;			//0x04
-	//...
+	short number;		//0x00   //Scr_Notify + 0x04   movsx edi, word ptr [rdi]
+	short type;			//0x04
+	char _pad0[0x88];	//0x08
 	float angles[3];	//0x8C
+	char _pad1[0xA0];	//0x98
 	float origin[3];	//0x138
-	//...
+	char _pad2[0x14];	//0x144
 	gclient_s *client;	//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
-	//...
+	char _pad3[0x28];	//0x160
 	short modelIndex;	//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
 	//...
 	int health;			//0x1D0
@@ -156,7 +157,7 @@ struct LUIElement {
 	float y1;			//0x34
 	float x2;			//0x38
 	float y2;			//0x3C
-	char pad1[0x40];	//0x40
+	char _pad0[0x40];	//0x40
 	Material *material;	//0x80
 	Font_s *font;		//0x88
 	//...

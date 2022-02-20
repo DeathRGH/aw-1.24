@@ -41,7 +41,7 @@ void InfiniteAmmo(bool state) {
 END
 NAMESPACE(Entity)
 
-gentity_s *GetEntity(int i) {
+gentity_s *GetEntityPtr(int i) {
 	return (gentity_s *)(gentity_t + (i * gentity_size));
 }
 
@@ -59,6 +59,18 @@ gentity_s *SpawnScriptModel(const char *modelName, float *origin) {
 	}
 
 	return entity;
+}
+
+const char *GetModelNameFromEntity(int i) {
+	gentity_s *ent = GetEntityPtr(i);
+
+	unsigned int modelNameIndex = G_ModelName(ent->modelIndex);
+	return SL_ConvertToString((scr_string_t)modelNameIndex);
+}
+
+const char *GetModelNameFromEntity(gentity_s *ent) {
+	unsigned int modelNameIndex = G_ModelName(ent->modelIndex);
+	return SL_ConvertToString((scr_string_t)modelNameIndex);
 }
 
 END
