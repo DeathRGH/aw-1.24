@@ -8,6 +8,8 @@ typedef void(*AngleVectors_t)(const float *, float *, float *, float *);
 
 typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text);
 
+typedef uint64_t(*DB_FindXAssetHeader_t)(XAssetType, const char *, int);
+
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
 typedef void(*G_GetAngles_t)(LocalClientNum_t, short, float *);
 typedef uint64_t(*G_LocalizedStringIndex_t)(const char *text);
@@ -16,7 +18,12 @@ typedef uint64_t(*G_MaterialIndex_t)(const char *material);
 typedef game_hudelem_t(*HudElem_Alloc_t)(int clientNum, int teamNum);
 typedef void(*HudElem_DestroyAll_t)();
 
+typedef LUIElement *(*LUI_GetRootElement_t)(const char *, lua_State *);
+typedef void(*LUI_Interface_DrawLine_t)(LUIElement *, float x1, float y1, float x2, float y2, unsigned char, float, float r, float g, float b, float a);
+
 typedef Material *(*Material_RegisterHandle_t)(const char *name, int imageTrack);
+
+typedef void(*Menus_OpenByName_t)(UiContext *, const char *);
 
 typedef void(*PlayerCmd_AllowBoostJump_t)(scr_entref_t);
 typedef void(*PlayerCmd_AllowDodge_t)(scr_entref_t);
@@ -55,6 +62,8 @@ extern AngleVectors_t AngleVectors;
 
 extern Cbuf_AddText_t Cbuf_AddText;
 
+extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
+
 extern G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
 extern G_GetAngles_t G_GetAngles;
 extern G_LocalizedStringIndex_t G_LocalizedStringIndex;
@@ -63,7 +72,12 @@ extern G_MaterialIndex_t G_MaterialIndex;
 extern HudElem_Alloc_t HudElem_Alloc;
 extern HudElem_DestroyAll_t HudElem_DestroyAll;
 
+extern LUI_GetRootElement_t LUI_GetRootElement;
+extern LUI_Interface_DrawLine_t LUI_Interface_DrawLine;
+
 extern Material_RegisterHandle_t Material_RegisterHandle;
+
+extern Menus_OpenByName_t Menus_OpenByName;
 
 extern PlayerCmd_AllowBoostJump_t PlayerCmd_AllowBoostJump;
 extern PlayerCmd_AllowDodge_t PlayerCmd_AllowDodge;
@@ -122,8 +136,6 @@ typedef void (*CG_DrawRotatedPicPhysical_t)(const ScreenPlacement *screenPlaceme
 
 typedef void (*CL_DrawText_t)(const unsigned int scrPlace, const char *text, int maxChars, int font, float x, float y, int horzAlign, int vertAlign, float xScale, float yScale, const float *color, int style);
 
-typedef int (*DB_FindXAssetHeader_t)(int type, const char *name, bool errorIfMissing, int waitTime);
-
 typedef void(*R_AddCmdDrawQuadPicW_t)(const float *verts, float w, const float *color, uint64_t material, uint64_t image);
 
 typedef unsigned short (*SL_GetStringOfSize_t)(const char *str, unsigned int user, unsigned int len);
@@ -145,8 +157,6 @@ extern CG_DrawRotatedPicPhysical_t CG_DrawRotatedPicPhysical;
 //extern CG_TracePoint_t CG_TracePoint;
 
 extern CL_DrawText_t CL_DrawText;
-
-extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 extern R_AddCmdDrawQuadPicW_t R_AddCmdDrawQuadPicW;
 

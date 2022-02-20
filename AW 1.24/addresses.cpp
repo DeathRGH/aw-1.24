@@ -7,6 +7,8 @@ void Init() {
 
 	Cbuf_AddText = (Cbuf_AddText_t)0x00000000007F6020;
 
+	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00000000006A4570;
+
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
 	G_GetAngles = (G_GetAngles_t)0x000000000076C310;
 	G_LocalizedStringIndex = (G_LocalizedStringIndex_t)0x0000000000442410;
@@ -15,7 +17,12 @@ void Init() {
 	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
 	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
 
+	LUI_GetRootElement = (LUI_GetRootElement_t)0x00000000004CF350;
+	LUI_Interface_DrawLine = (LUI_Interface_DrawLine_t)0x00000000004F2CA0;
+
 	Material_RegisterHandle = (Material_RegisterHandle_t)0x0000000000A058D0;
+
+	Menus_OpenByName = (Menus_OpenByName_t)0x0000000000907B30;
 
 	PlayerCmd_AllowBoostJump = (PlayerCmd_AllowBoostJump_t)0x000000000070F100;
 	PlayerCmd_AllowDodge = (PlayerCmd_AllowDodge_t)0x000000000070F180;
@@ -60,8 +67,6 @@ void Init() {
 	//CG_TracePoint = (CG_TracePoint_t)0x00;
 
 	//CL_DrawText = (CL_DrawText_t)0x00;
-
-	//DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00;
 
 	//R_AddCmdDrawQuadPicW = (R_AddCmdDrawQuadPicW_t)vHandler->addresses.addr_R_AddCmdDrawQuadPicW;
 

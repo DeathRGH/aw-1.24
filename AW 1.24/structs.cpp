@@ -7,7 +7,6 @@
 
 //UiContext_t *UiContext = (UiContext_t *)vHandler->structDefs.addr_UiContext;
 
-UiContext_t UiContext;
 cg_t cg;
 cgs_t cgs;
 centity_t centity[2048];

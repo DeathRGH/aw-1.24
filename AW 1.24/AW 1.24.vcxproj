@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cache.h" />
+    <ClInclude Include="debug.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="detour.h" />
     <ClInclude Include="functions.h" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClCompile Include="addresses.cpp" />
     <ClCompile Include="cache.cpp" />
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="defines.cpp" />
     <ClCompile Include="detour.cpp" />
     <ClCompile Include="functions.cpp" />

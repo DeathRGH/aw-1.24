@@ -11,6 +11,8 @@
 #define ScrPlace (ScreenPlacement *)0x00//vHandler->defs.addr_CustomScreenPlacement
 #define bg_weaponCompleteDefs 0x3DF7400 //
 
+#define lua_state (lua_State *)(*(uint64_t *)0x00000000025A6920)
+#define UI_Context (UiContext *)0x000000000B80C540
 
 //00000000026EE8A0 weapondef ( & 0x3FF)
 
@@ -36,16 +38,6 @@
 #define FONT_DEFAULT 0x00 //vHandler->defs.addr_Font_Default
 
 #define MENU_FONT FONT_DEFAULT
-
-enum XAssetType_t {
-	ASSET_TYPE_XMODEL = 0x04,
-	ASSET_TYPE_MATERIAL = 0x06,
-	ASSET_TYPE_IMAGE = 0x09,
-	ASSET_TYPE_CHARACTER = 0x2D,
-	ASSET_TYPE_XMODELALIAS = 0x2E,
-	ASSET_TYPE_TRACER = 0x3A,
-	ASSET_TYPE_TTF = 0x50
-};
 
 const char *FontForIndex(int index);
 const char *FontDisplayNameForIndex(int index);

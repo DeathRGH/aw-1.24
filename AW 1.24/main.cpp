@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+#include "debug.h"
 #include "defines.h"
 #include "detour.h"
 #include "functions.h"
@@ -53,17 +54,6 @@ void TestAllClientHuds() {
 	Hud(testHud).SetShader("white", 250, 50, 200, 150, 5, 0, 0, 0, 0, 0, 175);
 }
 
-
-
-typedef void(*Menus_OpenByName_t)(void *, char const *);
-Menus_OpenByName_t Menus_OpenByName = (Menus_OpenByName_t)0x0000000000907B30;
-
-/*void Menus_OpenByName_Hook(const void *rdi, char const *rsi) {
-	uartprintf("[AW 1.24] Menus_OpenByName: \"%s\"\n", rsi);
-	
-	Menus_OpenByName_Stub(rdi, rsi);
-}*/
-
 void DetectGame() {
 	if (!strcmp((char *)0x0000000000BFB355, "multiplayer")) {
 		executionAddress = 0x0000000000D43FF0;
@@ -98,13 +88,22 @@ void DetectGame() {
 		//memcpy((void *)0xB6F7F0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x83\xEC\x68", 17);
 		//Hooks::CL_Disconnect_Stub = (Hooks::CL_Disconnect_t)DetourFunction(0xB6F7F0, (void *)Hooks::CL_Disconnect_Hook, 17);
 
-		//restore
-		//memcpy((void *)0x0000000000905730, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x49\x89\xF7\x49\x89\xFC", 17);
-		//Menus_FindByName_Stub = (Menus_FindByName_t)DetourFunction(0x0000000000905730, (void *)Menus_FindByName_Hook, 17);
+		//restore LUI_CoD_Render
+		memcpy((void *)0x00000000004F01B0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x41\x89\xF6\x41\x89\xFF", 17);
+		Hooks::LUI_CoD_Render_Stub = (Hooks::LUI_CoD_Render_t)DetourFunction(0x00000000004F01B0, (void *)Hooks::LUI_CoD_Render_Hook, 17);
+
+		//restore LUIElement_Render
+		memcpy((void *)0x00000000004D6EC0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\xD8\x00\x00\x00", 20);
+		Hooks::LUIElement_Render_Stub = (Hooks::LUIElement_Render_t)DetourFunction(0x00000000004D6EC0, (void *)Hooks::LUIElement_Render_Hook, 20);
 
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
+
+		//uint64_t assetHeader = DB_FindXAssetHeader(XAssetType::ASSET_TYPE_MAP_ENTS, "maps/mp/mp_prison.d3dbsp", 0);
+		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
+
+		PrintLoadedZones();
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");
