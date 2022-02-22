@@ -97,8 +97,8 @@ void DetectGame() {
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
 
-		//uint64_t assetHeader = DB_FindXAssetHeader(/*XAssetType::ASSET_TYPE_MAP_ENTS*/(XAssetType)0x1C, "maps/mp/mp_venus.d3dbsp", 0);
-		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
+		uint64_t assetHeader = DB_FindXAssetHeader(/*XAssetType::ASSET_TYPE_MAP_ENTS*/(XAssetType)0x1C, "maps/mp/mp_venus.d3dbsp", 0);
+		uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
 
 		//PrintLoadedZones();
 		//uartprintf("[AW 1.24] %s", Host::Entity::GetModelNameFromEntity(0));
