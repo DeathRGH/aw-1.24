@@ -13,8 +13,22 @@
 
 NAMESPACE(Hooks)
 
+ClientThink_real_t ClientThink_real_Stub;
+
 LUI_CoD_Render_t LUI_CoD_Render_Stub;
+
 LUIElement_Render_t LUIElement_Render_Stub;
+
+void ClientThink_real_Hook(gentity_s *ent, usercmd_s *ucmd) {
+	ClientThink_real_Stub(ent, ucmd);
+
+	if (Host::Menu::lastClientButton[ent->number] == ucmd->buttons)
+		return;
+
+	Host::Menu::lastClientButton[ent->number] = ucmd->buttons;
+
+	//SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, "c Test");
+}
 
 typedef void(*LUI_Interface_DrawRectangle_t)(LUIElement *, float x, float y, float width, float height, float, float, float, float, float, float, float, Material *, float *, LUI_QuadRenderMode, bool, lua_State *);
 LUI_Interface_DrawRectangle_t LUI_Interface_DrawRectangle = (LUI_Interface_DrawRectangle_t)0x00000000004F2650;
@@ -112,6 +126,18 @@ void Scr_Notify_Hook(gentity_s *ent, scr_string_t stringValue, unsigned int para
 	}
 
 	Scr_NotifyNum(*(short *)ent, 0, stringValue, paramcount);
+}
+
+void SV_Cmd_TokenizeString_Hook(const char *text_in) {
+	char temp[100];
+	snprintf(temp, sizeof(temp), "f \"%s\"", text_in);
+	SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+
+	if (!strcmp(text_in, SV_CMD_R1_DOWN))
+		*(char *)(0x000000000659C180 + 0x5370) ^= 1;
+
+	//reversed below
+	Cmd_TokenizeStringKernel(text_in, 0x200 - *(int *)0x0000000009A4C820, (CmdArgs *)0x0000000009A224E8, (CmdArgsPrivate *)0x0000000009A47800);
 }
 
 END

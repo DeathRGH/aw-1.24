@@ -8,6 +8,8 @@ typedef void(*AngleVectors_t)(const float *angles, float *forward, float *right,
 
 typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text);
 
+typedef void(*Cmd_TokenizeStringKernel_t)(const char *text_in, int max_tokens, CmdArgs *args, CmdArgsPrivate *argsPriv);
+
 typedef uint64_t(*DB_FindXAssetHeader_t)(XAssetType type, const char *name, int allowCreateDefault);
 
 typedef int(*G_DObjGetWorldTagPos_t)(const gentity_s *, scr_string_t, float *);
@@ -77,6 +79,8 @@ typedef unsigned short(*Trace_GetEntityHitId_t)(const trace_t *trace);
 extern AngleVectors_t AngleVectors;
 
 extern Cbuf_AddText_t Cbuf_AddText;
+
+extern Cmd_TokenizeStringKernel_t Cmd_TokenizeStringKernel;
 
 extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
 

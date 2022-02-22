@@ -22,4 +22,10 @@ const char *GetModelNameFromEntity(int i);
 const char *GetModelNameFromEntity(gentity_s *ent);
 
 END
+NAMESPACE(Menu)
+
+#define MAX_MENU_CLIENTS 18
+extern int lastClientButton[MAX_MENU_CLIENTS];
+
+END
 END

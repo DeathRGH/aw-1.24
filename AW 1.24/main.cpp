@@ -85,6 +85,10 @@ void DetectGame() {
 
 		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
+		//restore ClientThink_real
+		memcpy((void *)0x0000000000704320, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xE4\xE0\xFF\xFF\xFF", 20);
+		Hooks::ClientThink_real_Stub = (Hooks::ClientThink_real_t)DetourFunction(0x0000000000704320, (void *)Hooks::ClientThink_real_Hook, 20);
+
 		//restore LUI_CoD_Render
 		memcpy((void *)0x00000000004F01B0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x41\x89\xF6\x41\x89\xFF", 17);
 		Hooks::LUI_CoD_Render_Stub = (Hooks::LUI_CoD_Render_t)DetourFunction(0x00000000004F01B0, (void *)Hooks::LUI_CoD_Render_Hook, 17);
@@ -96,6 +100,7 @@ void DetectGame() {
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
+		WriteJump(0x00000000007F6CC0, (uint64_t)Hooks::SV_Cmd_TokenizeString_Hook);
 
 		uint64_t assetHeader = DB_FindXAssetHeader(/*XAssetType::ASSET_TYPE_MAP_ENTS*/(XAssetType)0x1C, "maps/mp/mp_venus.d3dbsp", 0);
 		uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);

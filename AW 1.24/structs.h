@@ -8,7 +8,7 @@ typedef unsigned short scr_string_t;
 
 //
 
-enum GfxRenderCommand : int {
+enum GfxRenderCommand {
 	//...
 };
 
@@ -22,11 +22,11 @@ enum LocalClientNum_t : int {
 	LOCAL_CLIENT_COUNT = 5
 };
 
-enum LUI_QuadRenderMode : int {
+enum LUI_QuadRenderMode {
 	//...
 };
 
-enum svscmd_type : int {
+enum svscmd_type {
 	SV_CMD_CAN_IGNORE = 0,
 	SV_CMD_RELIABLE = 1
 };
@@ -104,6 +104,15 @@ enum XAssetType
 
 //
 
+struct CmdArgs {
+	//...
+};
+
+struct CmdArgsPrivate {
+	//...
+};
+
+
 struct Font_s { // 0x28
 	const char *name;
 	int height;
@@ -113,13 +122,22 @@ struct Font_s { // 0x28
 	uintptr_t u3;
 };
 
-struct gclient_s {
-	//...
-	int serverTime;	//0x4C
+struct usercmd_s { // 0x44
+	int time;		//0x00
+	int buttons;	//0x04
 	//...
 };
 
-struct gentity_s { //0x2E0
+struct gclient_s {
+	//...
+	int serverTime;		//0x4C
+	//...
+	usercmd_s *ucmd;	//0x4F9C
+	usercmd_s *olducmd;	//0x4FE0
+	//...
+};
+
+struct gentity_s { // 0x2E0
 	short number;		//0x00   //Scr_Notify + 0x04   movsx edi, word ptr [rdi]
 	short type;			//0x04
 	char _pad0[0x88];	//0x08
@@ -140,7 +158,7 @@ struct lua_State {
 	//...
 };
 
-struct Material { //0x338
+struct Material { // 0x338
 	const char *name;
 	//...
 };

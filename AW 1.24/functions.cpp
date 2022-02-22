@@ -4,6 +4,8 @@ AngleVectors_t AngleVectors;
 
 Cbuf_AddText_t Cbuf_AddText;
 
+Cmd_TokenizeStringKernel_t Cmd_TokenizeStringKernel;
+
 DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;

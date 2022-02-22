@@ -7,6 +7,8 @@ void Init() {
 
 	Cbuf_AddText = (Cbuf_AddText_t)0x00000000007F6020;
 
+	Cmd_TokenizeStringKernel = (Cmd_TokenizeStringKernel_t)0x00000000007F6980;
+
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00000000006A4570;
 
 	G_DObjGetWorldTagPos = (G_DObjGetWorldTagPos_t)0x000000000076B250;
