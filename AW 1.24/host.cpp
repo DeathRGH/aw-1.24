@@ -77,8 +77,8 @@ void CloneBrushModelToScriptModel(gentity_s *scriptModel, gentity_s *brushModel)
 int Solid(gentity_s *ent) {
 	int *scrconst = (int *)scr_const;
 	int classname = ent->classname;
-	if (classname != *(scrconst + 57)) { //ScriptEntCmd_Solid + 0x6C   cmp eax, [rcx+15Ch]   (0x15C / 4)
-		if (classname == *(scrconst + 56)) { //ScriptEntCmd_Solid + 0x7B   cmp eax, [rcx+158h]   (0x158 / 4)
+	if (classname != *(scrconst + 0x57)) { //ScriptEntCmd_Solid + 0x6C   cmp eax, [rcx+15Ch]   (0x15C / 4)
+		if (classname == *(scrconst + 0x56)) { //ScriptEntCmd_Solid + 0x7B   cmp eax, [rcx+158h]   (0x158 / 4)
 			*(int *)((uint8_t *)ent + 0x11C) = 0x2080; // r.contents
 		}
 		else {
