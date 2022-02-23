@@ -19,6 +19,8 @@ LUI_CoD_Render_t LUI_CoD_Render_Stub;
 
 LUIElement_Render_t LUIElement_Render_Stub;
 
+VM_Notify_t VM_Notify_Stub;
+
 void ClientThink_real_Hook(gentity_s *ent, usercmd_s *ucmd) {
 	ClientThink_real_Stub(ent, ucmd);
 
@@ -129,15 +131,82 @@ void Scr_Notify_Hook(gentity_s *ent, scr_string_t stringValue, unsigned int para
 }
 
 void SV_Cmd_TokenizeString_Hook(const char *text_in) {
-	char temp[100];
-	snprintf(temp, sizeof(temp), "f \"%s\"", text_in);
-	SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+	//char temp[100];
+	//snprintf(temp, sizeof(temp), "f \"^5%s\"", text_in);
+	//SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
 
-	if (!strcmp(text_in, SV_CMD_R1_DOWN))
-		*(char *)(0x000000000659C180 + 0x5370) ^= 1;
+	//if (!strcmp(text_in, SV_CMD_R1_DOWN))
+		//*(char *)(0x000000000659C180 + 0x5370) ^= 1;
 
 	//reversed below
 	Cmd_TokenizeStringKernel(text_in, 0x200 - *(int *)0x0000000009A4C820, (CmdArgs *)0x0000000009A224E8, (CmdArgsPrivate *)0x0000000009A47800);
+}
+
+void VM_Notify_Hook(unsigned int notifyListOwnerId, scr_string_t stringValue, VariableValue *top) {
+	if (true) {
+		const char *notifyString = SL_ConvertToString(stringValue);
+		int entityNum = Scr_GetSelf(notifyListOwnerId);
+		if (!strcmp(notifyString, "player_spawned")) {
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, "f \"player_spawned\"");
+
+			int spawnedClientIndex = Scr_GetSelf(top->u.entityOffset);
+
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^2spawnedClientIndex: %i\"", spawnedClientIndex);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+
+
+			Cmd_RegisterNotification(spawnedClientIndex, "+actionslot 1", "DPAD_UP");
+			Cmd_RegisterNotification(spawnedClientIndex, "+actionslot 2", "DPAD_DOWN");
+			Cmd_RegisterNotification(spawnedClientIndex, "+actionslot 3", "DPAD_LEFT");
+			Cmd_RegisterNotification(spawnedClientIndex, "+actionslot 4", "DPAD_RIGHT");
+			Cmd_RegisterNotification(spawnedClientIndex, "+frag", "BTN_R1");
+			//Cmd_RegisterNotification(spawnedClientIndex, "+gostand", "BUTTON_X");
+			//Cmd_RegisterNotification(spawnedClientIndex, "+usereload", "BUTTON_SQUARE");
+			//Cmd_RegisterNotification(spawnedClientIndex, "+melee_zoom", "BUTTON_R3");
+			//ClientInfo[spawnedClientIndex].IsAlive = true;
+			//EnableMenu(spawnedClientIndex, host);
+		}
+		if (!strcmp(notifyString, "DPAD_UP")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_UP\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+		}
+		if (!strcmp(notifyString, "DPAD_DOWN")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_DOWN\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+
+			float pos[3];
+			G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, entityNum, pos);
+			gentity_s *ent = Host::Entity::SpawnScriptModel("com_plasticcase_green_big_us_dirt", pos);
+			//float newAngles[3] = { 0.0f, 0.0f, 180.0f };
+			//G_SetAngle(ent, newAngles);
+
+			gentity_s *collision = Host::Entity::FindCollision("pf13_auto1");
+			Host::Entity::CloneBrushModelToScriptModel(ent, collision);
+			Host::Entity::Solid(ent);
+		}
+		if (!strcmp(notifyString, "DPAD_LEFT")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_LEFT\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+		}
+		if (!strcmp(notifyString, "DPAD_RIGHT")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_RIGHT\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+		}
+		if (!strcmp(notifyString, "BTN_R1")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit BTN_R1\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+			
+			*(char *)(gclient_t + 0x5370 + (entityNum * gclient_size)) ^= 1;
+		}
+	}
+
+	VM_Notify_Stub(notifyListOwnerId, stringValue, top);
 }
 
 END

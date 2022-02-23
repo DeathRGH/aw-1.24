@@ -61,6 +61,56 @@ gentity_s *SpawnScriptModel(const char *modelName, float *origin) {
 	return entity;
 }
 
+void CloneBrushModelToScriptModel(gentity_s *scriptModel, gentity_s *brushModel) {
+	if (!scriptModel || !brushModel)
+		return;
+
+	SV_UnlinkEntity(scriptModel);
+	*(int *)((uint8_t *)scriptModel + /*0x8C*/0xE0) = *(int *)((uint8_t *)brushModel + /*0x8C*/0xE0); // s.index.brushModel
+	*(uint8_t *)((uint8_t *)scriptModel + /*0x109*/0x101) = 4; // r.modelType
+	int contents = *(int *)((uint8_t *)scriptModel + 0x11C); // r.contents
+	SV_SetBrushModel(scriptModel);
+	*(int *)((uint8_t *)scriptModel + 0x11C) |= contents; // r.contents
+	SV_LinkEntity(scriptModel);
+}
+
+int Solid(gentity_s *ent) {
+	int *scrconst = (int *)scr_const;
+	int classname = ent->classname;
+	if (classname != *(scrconst + 57)) { //ScriptEntCmd_Solid + 0x6C   cmp eax, [rcx+15Ch]   (0x15C / 4)
+		if (classname == *(scrconst + 56)) { //ScriptEntCmd_Solid + 0x7B   cmp eax, [rcx+158h]   (0x158 / 4)
+			*(int *)((uint8_t *)ent + 0x11C) = 0x2080; // r.contents
+		}
+		else {
+			*(int *)((uint8_t *)ent + 0x11C) = 1; // r.contents
+			*(uint8_t *)((uint8_t *)ent + 0x58) &= 0xFE; // s.lerp.eFlags
+		}
+
+		SV_LinkEntity(ent);
+		return 0;
+	}
+	else
+		return 1;
+}
+
+gentity_s *FindCollision(const char *name) {
+	for (int i = 0; i < 256; i++) {
+		gentity_s *ent = GetEntityPtr(i);
+		// check if it is a brushmodel
+		if (*(uint8_t *)((uint8_t *)ent + /*0x109*/0x101) == 4) {
+			const char *targetname = SL_ConvertToString(ent->targetname);
+			if (targetname) {
+				// see d3dbsp files for maps
+				if (!strcmp(targetname, name)) {
+					return ent;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
 const char *GetModelNameFromEntity(int i) {
 	gentity_s *ent = GetEntityPtr(i);
 

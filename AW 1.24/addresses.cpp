@@ -7,6 +7,7 @@ void Init() {
 
 	Cbuf_AddText = (Cbuf_AddText_t)0x00000000007F6020;
 
+	Cmd_RegisterNotification = (Cmd_RegisterNotification_t)0x00000000007F70C0;
 	Cmd_TokenizeStringKernel = (Cmd_TokenizeStringKernel_t)0x00000000007F6980;
 
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x00000000006A4570;
@@ -24,6 +25,8 @@ void Init() {
 	G_SetModel = (G_SetModel_t)0x000000000076A740;
 	G_SetOrigin = (G_SetOrigin_t)0x000000000076C0B0;
 	G_Spawn = (G_Spawn_t)0x000000000076B810;
+
+	GScr_MapRestart = (GScr_MapRestart_t)0x00000000007583E0;
 
 	HudElem_Alloc = (HudElem_Alloc_t)0x000000000071BC20;
 	HudElem_DestroyAll = (HudElem_DestroyAll_t)0x000000000071BE00;
@@ -58,6 +61,7 @@ void Init() {
 	Scr_AddInt = (Scr_AddInt_t)0x00000000008547E0;
 	Scr_AddString = (Scr_AddString_t)0x0000000000854AD0;
 	Scr_AddVector = (Scr_AddVector_t)0x0000000000854CE0;
+	Scr_GetSelf = (Scr_GetSelf_t)0x000000000084DF10;
 	Scr_MagicBullet = (Scr_MagicBullet_t)0x000000000073BBB0;
 	Scr_NotifyNum = (Scr_NotifyNum_t)0x0000000000852AE0;
 	

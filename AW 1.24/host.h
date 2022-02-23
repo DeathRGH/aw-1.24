@@ -17,6 +17,9 @@ NAMESPACE(Entity)
 
 gentity_s *GetEntityPtr(int i);
 gentity_s *SpawnScriptModel(const char *modelName, float *origin);
+void CloneBrushModelToScriptModel(gentity_s *scriptModel, gentity_s *brushModel);
+int Solid(gentity_s *ent);
+gentity_s *FindCollision(const char *name);
 
 const char *GetModelNameFromEntity(int i);
 const char *GetModelNameFromEntity(gentity_s *ent);

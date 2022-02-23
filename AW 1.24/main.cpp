@@ -97,6 +97,10 @@ void DetectGame() {
 		memcpy((void *)0x00000000004D6EC0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\xD8\x00\x00\x00", 20);
 		Hooks::LUIElement_Render_Stub = (Hooks::LUIElement_Render_t)DetourFunction(0x00000000004D6EC0, (void *)Hooks::LUIElement_Render_Hook, 20);
 
+		//restore VM_Notify
+		memcpy((void *)0x0000000000859090, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\x88\x00\x00\x00", 20);
+		Hooks::VM_Notify_Stub = (Hooks::VM_Notify_t)DetourFunction(0x0000000000859090, (void *)Hooks::VM_Notify_Hook, 20);
+
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
@@ -111,6 +115,8 @@ void DetectGame() {
 		//float pos[3];
 		//G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
 		//Host::Entity::SpawnScriptModel("dyn_ven_banners_tube_01_intct", pos);
+
+		//GScr_MapRestart();
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");

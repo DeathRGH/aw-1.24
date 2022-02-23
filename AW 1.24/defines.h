@@ -13,8 +13,11 @@
 
 #define gentity_t 0x00000000064293D0
 #define gentity_size 0x2E0
+#define gclient_t 0x000000000659C180
+#define gclient_size 0x5780
 #define lua_state (lua_State *)(*(uint64_t *)0x00000000025A6920)
 #define UI_Context (UiContext *)0x000000000B80C540
+#define scr_const 0x00000000066B4500
 
 //00000000026EE8A0 weapondef ( & 0x3FF)
 

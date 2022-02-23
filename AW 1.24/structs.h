@@ -138,19 +138,24 @@ struct gclient_s {
 };
 
 struct gentity_s { // 0x2E0
-	short number;		//0x00   //Scr_Notify + 0x04   movsx edi, word ptr [rdi]
-	short type;			//0x04
-	char _pad0[0x88];	//0x08
-	float angles[3];	//0x8C
-	char _pad1[0xA0];	//0x98
-	float origin[3];	//0x138
-	char _pad2[0x14];	//0x144
-	gclient_s *client;	//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
-	char _pad3[0x28];	//0x160
-	short modelIndex;	//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
+	short number;			//0x00   //Scr_Notify + 0x04   movsx edi, word ptr [rdi]
+	short type;				//0x04
+	char _pad0[0x88];		//0x08
+	float angles[3];		//0x8C
+	char _pad1[0xA0];		//0x98
+	float origin[3];		//0x138
+	char _pad2[0x14];		//0x144
+	gclient_s *client;		//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
+	char _pad3[0x28];		//0x160
+	short modelIndex;		//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
+	int classname;			//0x194   //ScriptEntCmd_Solid + 0x5F   mov eax, [rbx+194h]
+	int script_classname;	//0x198
+	int script_linkName;	//0x19C
+	int target;				//0x1A0
+	int targetname;			//0x1A4
 	//...
-	int health;			//0x1D0
-	int maxHealth;		//0x1D4
+	int health;				//0x1D0
+	int maxHealth;			//0x1D4
 	//...
 };
 
@@ -196,6 +201,23 @@ struct trace_t {
 
 struct UiContext {
 	//...
+};
+
+union VariableUnion { //PDB, not tested
+	int intValue;
+	int uintValue;
+	float floatValue;
+	int stringValue;
+	void *vectorValue;
+	void *codePosValue;
+	int pointerValue;
+	void *stackValue;
+	int entityOffset;
+};
+
+struct VariableValue { //PDB, not tested
+	VariableUnion u;
+	int type;
 };
 
 

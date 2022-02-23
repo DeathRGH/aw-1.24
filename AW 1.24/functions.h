@@ -8,6 +8,7 @@ typedef void(*AngleVectors_t)(const float *angles, float *forward, float *right,
 
 typedef void(*Cbuf_AddText_t)(LocalClientNum_t localClientNum, const char *text);
 
+typedef void(*Cmd_RegisterNotification_t)(int clientNum, const char *commandString, const char *notifyString);
 typedef void(*Cmd_TokenizeStringKernel_t)(const char *text_in, int max_tokens, CmdArgs *args, CmdArgsPrivate *argsPriv);
 
 typedef uint64_t(*DB_FindXAssetHeader_t)(XAssetType type, const char *name, int allowCreateDefault);
@@ -25,6 +26,8 @@ typedef void(*G_SetAngle_t)(gentity_s *, const float *);
 typedef void(*G_SetModel_t)(gentity_s *, const char *);
 typedef void(*G_SetOrigin_t)(gentity_s *, const float *);
 typedef gentity_s *(*G_Spawn_t)();
+
+typedef void(*GScr_MapRestart_t)();
 
 typedef game_hudelem_t(*HudElem_Alloc_t)(int clientNum, int teamNum);
 typedef void(*HudElem_DestroyAll_t)();
@@ -59,6 +62,7 @@ typedef void(*Scr_AddEntity_t)(const gentity_s *);
 typedef void(*Scr_AddInt_t)(int value);
 typedef void(*Scr_AddString_t)(const char *value);
 typedef void(*Scr_AddVector_t)(const float *value);
+typedef unsigned int(*Scr_GetSelf_t)(unsigned int threadId);
 typedef void(*Scr_MagicBullet_t)();
 typedef void(*Scr_NotifyNum_t)(int entnum, unsigned int classnum, scr_string_t stringValue, unsigned int paramcount);
 
@@ -80,6 +84,7 @@ extern AngleVectors_t AngleVectors;
 
 extern Cbuf_AddText_t Cbuf_AddText;
 
+extern Cmd_RegisterNotification_t Cmd_RegisterNotification;
 extern Cmd_TokenizeStringKernel_t Cmd_TokenizeStringKernel;
 
 extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
@@ -97,6 +102,8 @@ extern G_SetAngle_t G_SetAngle;
 extern G_SetModel_t G_SetModel;
 extern G_SetOrigin_t G_SetOrigin;
 extern G_Spawn_t G_Spawn;
+
+extern GScr_MapRestart_t GScr_MapRestart;
 
 extern HudElem_Alloc_t HudElem_Alloc;
 extern HudElem_DestroyAll_t HudElem_DestroyAll;
@@ -131,6 +138,7 @@ extern Scr_AddEntity_t Scr_AddEntity;
 extern Scr_AddInt_t Scr_AddInt;
 extern Scr_AddString_t Scr_AddString;
 extern Scr_AddVector_t Scr_AddVector;
+extern Scr_GetSelf_t Scr_GetSelf;
 extern Scr_MagicBullet_t Scr_MagicBullet;
 extern Scr_NotifyNum_t Scr_NotifyNum;
 
