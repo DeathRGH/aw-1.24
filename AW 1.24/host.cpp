@@ -2,6 +2,7 @@
 
 #include "functions.h"
 #include "imports.h"
+#include "utility.h"
 
 NAMESPACE(Host)
 
@@ -54,7 +55,7 @@ gentity_s *SpawnScriptModel(const char *modelName, float *origin) {
 		if (origin)
 			G_SetOrigin(entity, origin);
 
-		//entity->spawnflags = 0;
+		entity->spawnflags = 0;
 		SP_script_model(entity);
 	}
 
@@ -66,11 +67,11 @@ void CloneBrushModelToScriptModel(gentity_s *scriptModel, gentity_s *brushModel)
 		return;
 
 	SV_UnlinkEntity(scriptModel);
-	*(int *)((uint8_t *)scriptModel + /*0x8C*/0xE0) = *(int *)((uint8_t *)brushModel + /*0x8C*/0xE0); // s.index.brushModel
-	*(uint8_t *)((uint8_t *)scriptModel + /*0x109*/0x101) = 4; // r.modelType
-	int contents = *(int *)((uint8_t *)scriptModel + 0x11C); // r.contents
+	*(int *)((uint8_t *)scriptModel + 0x10) = *(int *)((uint8_t *)brushModel + 0x10); //ScriptEntCmd_CloneBrushModelToScriptModel + 0xA8   mov eax, [r14+10h]
+	*(uint8_t *)((uint8_t *)scriptModel + 0x101) = 4; //ScriptEntCmd_CloneBrushModelToScriptModel + 0xAF   mov byte ptr [rbx+101h], 4
+	int contents = *(int *)((uint8_t *)scriptModel + 0x11C); //ScriptEntCmd_CloneBrushModelToScriptModel + 0xB6   mov r14d, [rbx+11Ch]
 	SV_SetBrushModel(scriptModel);
-	*(int *)((uint8_t *)scriptModel + 0x11C) |= contents; // r.contents
+	*(int *)((uint8_t *)scriptModel + 0x11C) |= contents; //ScriptEntCmd_CloneBrushModelToScriptModel + 0xC5   or [rbx+11Ch], r14d
 	SV_LinkEntity(scriptModel);
 }
 
@@ -79,11 +80,11 @@ int Solid(gentity_s *ent) {
 	int classname = ent->classname;
 	if (classname != *(scrconst + 0x57)) { //ScriptEntCmd_Solid + 0x6C   cmp eax, [rcx+15Ch]   (0x15C / 4)
 		if (classname == *(scrconst + 0x56)) { //ScriptEntCmd_Solid + 0x7B   cmp eax, [rcx+158h]   (0x158 / 4)
-			*(int *)((uint8_t *)ent + 0x11C) = 0x2080; // r.contents
+			*(int *)((uint8_t *)ent + 0x11C) = 0x2080; //ScriptEntCmd_Solid + 0x83   mov dword ptr [rbx+11Ch], 2080h
 		}
 		else {
-			*(int *)((uint8_t *)ent + 0x11C) = 1; // r.contents
-			*(uint8_t *)((uint8_t *)ent + 0x58) &= 0xFE; // s.lerp.eFlags
+			*(int *)((uint8_t *)ent + 0x11C) = 1; //ScriptEntCmd_Solid + 0x8F   mov dword ptr [rbx+11Ch], 1
+			*(uint8_t *)((uint8_t *)ent + 0x58) &= 0xFE; //ScriptEntCmd_Solid + 0x99   and byte ptr [rbx+58h], 0FEh
 		}
 
 		SV_LinkEntity(ent);
@@ -94,20 +95,23 @@ int Solid(gentity_s *ent) {
 }
 
 gentity_s *FindCollision(const char *name) {
-	for (int i = 0; i < 256; i++) {
+	for (int i = 0; i < 2048; i++) {
 		gentity_s *ent = GetEntityPtr(i);
 		// check if it is a brushmodel
-		if (*(uint8_t *)((uint8_t *)ent + /*0x109*/0x101) == 4) {
+		if (*(uint8_t *)((uint8_t *)ent + 0x101) == 4) {
 			const char *targetname = SL_ConvertToString(ent->targetname);
+			//uartprintf("[AW 1.24] FindCollision(%s) -> %i %s\n", name, i, targetname);
 			if (targetname) {
 				// see d3dbsp files for maps
 				if (!strcmp(targetname, name)) {
+					//uartprintf("[AW 1.24] FindCollision(%s) -> 0x%llX (%i): %s\n", name, ent, i, targetname);
 					return ent;
 				}
 			}
 		}
 	}
 
+	uartprintf("[AW 1.24] FindCollision(%s) -> Collision for \"%s\" not found!\n", name, name);
 	return 0;
 }
 
