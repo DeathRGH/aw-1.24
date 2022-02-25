@@ -8,7 +8,7 @@ typedef unsigned short scr_string_t;
 
 //
 
-enum GfxRenderCommand : int {
+enum GfxRenderCommand {
 	//...
 };
 
@@ -22,71 +22,72 @@ enum LocalClientNum_t : int {
 	LOCAL_CLIENT_COUNT = 5
 };
 
-enum LUI_QuadRenderMode : int {
+enum LUI_QuadRenderMode {
 	//...
 };
 
-enum svscmd_type : int {
+enum svscmd_type {
 	SV_CMD_CAN_IGNORE = 0,
 	SV_CMD_RELIABLE = 1
 };
 
 enum XAssetType
 {
-	//ASSET_TYPE_PHYSPRESET = 0x00,
-	//ASSET_TYPE_PHYSCOLLMAP = 0x01,
-	//ASSET_TYPE_XANIMPARTS = 0x02,
-	//ASSET_TYPE_XMODEL_SURFS = 0x03,
-	//ASSET_TYPE_XMODEL = 0x04,
+	ASSET_TYPE_PHYSPRESET = 0x00,
+	ASSET_TYPE_PHYSCOLLMAP = 0x01,
+	ASSET_TYPE_PHYSWATERPRESET = 0x02,
+	//...   //0000000000668EA0 -> 2 unknown types, even in the pdb
+	ASSET_TYPE_XANIMPARTS = 0x05,
+	ASSET_TYPE_XMODEL_SURFS = 0x06,
+	ASSET_TYPE_XMODEL = 0x07,
 	ASSET_TYPE_MATERIAL = 0x08,
-	//ASSET_TYPE_COMPUTESHADER = 0x06,
-	//ASSET_TYPE_VERTEXSHADER = 0x07,
-	//ASSET_TYPE_HULLSHADER = 0x08,
-	//ASSET_TYPE_DOMAINSHADER = 0x09,
-	//ASSET_TYPE_PIXELSHADER = 0x0A,
-	//ASSET_TYPE_VERTEXDECL = 0x0B,
-	//ASSET_TYPE_TECHNIQUE_SET = 0x0C,
+	ASSET_TYPE_COMPUTESHADER = 0x09,
+	ASSET_TYPE_VERTEXSHADER = 0x0A,
+	ASSET_TYPE_HULLSHADER = 0x0B,
+	ASSET_TYPE_DOMAINSHADER = 0x0C,
+	ASSET_TYPE_PIXELSHADER = 0x0D,
+	ASSET_TYPE_TECHNIQUE_SET = 0x0E,
 	ASSET_TYPE_IMAGE = 0x0F,
-	//ASSET_TYPE_SOUND = 0x0E,
-	//ASSET_TYPE_SOUND_CURVE = 0x0F,
-	//ASSET_TYPE_LPF_CURVE = 0x10,
-	//ASSET_TYPE_REVERB_CURVE = 0x11,
-	//ASSET_TYPE_LOADED_SOUND = 0x12,
-	//ASSET_TYPE_CLIPMAP = 0x13,
-	//ASSET_TYPE_COMWORLD = 0x14,
-	//ASSET_TYPE_GLASSWORLD = 0x15,
-	//ASSET_TYPE_PATHDATA = 0x16,
-	//ASSET_TYPE_VEHICLE_TRACK = 0x17,
-	ASSET_TYPE_MAP_ENTS = 0x18, //SV_SpawnServer + 0xABE   call Com_LoadWorld
-	//ASSET_TYPE_FXWORLD = 0x19,
-	//ASSET_TYPE_GFXWORLD = 0x1A,
-	//ASSET_TYPE_LIGHT_DEF = 0x1B,
-	//ASSET_TYPE_UI_MAP = 0x1C,
-	ASSET_TYPE_FONT = 0x21,
-	//ASSET_TYPE_MENULIST = 0x1E,
-	//ASSET_TYPE_MENU = 0x1F,
-	//ASSET_TYPE_ANIMCLASS = 0x20,
-	//ASSET_TYPE_LOCALIZE_ENTRY = 0x21,
+	ASSET_TYPE_SOUND = 0x10, //Com_TryFindSoundAlias + 0x1B   mov edi, 10h
+	//ASSET_TYPE_SOUND_CURVE = 0x11,
+	//ASSET_TYPE_LPF_CURVE = 0x12,
+	//ASSET_TYPE_REVERB_CURVE = 0x13,
+	//ASSET_TYPE_LOADED_SOUND = 0x14,
+	//ASSET_TYPE_CLIPMAP = 0x15,
+	//ASSET_TYPE_COMWORLD = 0x16,
+	ASSET_TYPE_GLASSWORLD = 0x19, //G_InitGlass + 0x42   mov edi, 19h
+	ASSET_TYPE_PATHDATA = 0x1A,
+	ASSET_TYPE_VEHICLE_TRACK = 0x1B,
+	ASSET_TYPE_MAP_ENTS = 0x1C,
+	ASSET_TYPE_FXWORLD = 0x1D, //FX_LoadWorld + 0x07   mov edi, 1Dh
+	ASSET_TYPE_GFXWORLD = 0x1E,
+	ASSET_TYPE_LIGHT_DEF = 0x1F, //R_InitLightDefs + 0x0B   mov edi, 1Fh
+	//ASSET_TYPE_UI_MAP = 0x20,
+	ASSET_TYPE_FONT = 0x21, //R_RegisterFont + 0x0C   mov edi, 21h
+	ASSET_TYPE_MENULIST = 0x22,
+	ASSET_TYPE_MENU = 0x23, //UI_DrawMapLevelshot + 0x16   mov edi, 23h
+	//ASSET_TYPE_ANIMCLASS = 0x24,
+	ASSET_TYPE_LOCALIZE_ENTRY = 0x25, //SEH_StringEd_GetString + 0x33   mov edi, 25h
 	//ASSET_TYPE_ATTACHMENT = 0x22,
 	//ASSET_TYPE_WEAPON = 0x23,
-	//ASSET_TYPE_SNDDRIVER_GLOBALS = 0x24,
-	//ASSET_TYPE_FX = 0x24,
+	ASSET_TYPE_SNDDRIVER_GLOBALS = 0x28, //SND_Init + 0xC4A   mov edi, 28h
+	ASSET_TYPE_FX = 0x29, //FX_Register + 0x03   mov edi, 29h
 	//ASSET_TYPE_IMPACT_FX = 0x26,
 	//ASSET_TYPE_SURFACE_FX = 0x27,
 	//ASSET_TYPE_AITYPE = 0x28,
 	//ASSET_TYPE_MPTYPE = 0x29,
 	//ASSET_TYPE_CHARACTER = 0x2A,
 	//ASSET_TYPE_XMODELALIAS = 0x2B,
-	//ASSET_TYPE_RAWFILE = 0x2B,
-	//ASSET_TYPE_SCRIPTFILE = 0x2C,
-	//ASSET_TYPE_STRINGTABLE = 0x2E,
-	//ASSET_TYPE_LEADERBOARD = 0x2F,
-	//ASSET_TYPE_STRUCTURED_DATA_DEF = 0x30,
-	//ASSET_TYPE_TRACER = 0x31,
+	ASSET_TYPE_RAWFILE = 0x30,
+	ASSET_TYPE_SCRIPTFILE = 0x31,
+	ASSET_TYPE_STRINGTABLE = 0x32,
+	ASSET_TYPE_LEADERBOARD = 0x33,
+	ASSET_TYPE_STRUCTURED_DATA_DEF = 0x34,
+	ASSET_TYPE_TRACER = 0x35,
 	ASSET_TYPE_VEHICLE = 0x36,
 	//ASSET_TYPE_ADDON_MAP_ENTS = 0x33,
 	//ASSET_TYPE_NET_CONST_STRINGS = 0x34,
-	//ASSET_TYPE_REVERB_PRESET = 0x35,
+	ASSET_TYPE_REVERB_PRESET = 0x39, //LoadReverbPreset + 0x13   mov edi, 39h
 	//ASSET_TYPE_LUA_FILE = 0x35,
 	//ASSET_TYPE_SCRIPTABLE = 0x37,
 	//ASSET_TYPE_COLORIZATION = 0x38,
@@ -94,7 +95,7 @@ enum XAssetType
 	//ASSET_TYPE_TONEMAPPING = 0x3A,
 	//ASSET_TYPE_EQUIPMENT_SND_TABLE = 0x3B,
 	//ASSET_TYPE_VECTORFIELD = 0x3C,
-	//ASSET_TYPE_DOPPLER_PRESET = 0x3D,
+	ASSET_TYPE_DOPPLER_PRESET = 0x3E, //LoadDopplerPreset + 0x13   mov edi, 3Eh
 	//ASSET_TYPE_PARTICLE_SIM_ANIMATION = 0x3E,
 	//ASSET_TYPE_COUNT = 0x3F,
 	//ASSET_TYPE_STRING = 0x3F,
@@ -102,6 +103,15 @@ enum XAssetType
 };
 
 //
+
+struct CmdArgs {
+	//...
+};
+
+struct CmdArgsPrivate {
+	//...
+};
+
 
 struct Font_s { // 0x28
 	const char *name;
@@ -112,25 +122,43 @@ struct Font_s { // 0x28
 	uintptr_t u3;
 };
 
-struct gclient_s {
-	//...
-	int serverTime;	//0x4C
+struct usercmd_s { // 0x44
+	int time;		//0x00
+	int buttons;	//0x04
 	//...
 };
 
-struct gentity_s { //0x2E0
-	int number;			//0x00
-	int type;			//0x04
+struct gclient_s {
 	//...
-	float angles[3];	//0x8C
-	float origin[3];	//0x138
+	int serverTime;		//0x4C
 	//...
-	gclient_s *client;	//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
+	usercmd_s *ucmd;	//0x4F9C
+	usercmd_s *olducmd;	//0x4FE0
 	//...
-	short modelIndex;	//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
+};
+
+struct gentity_s { // 0x2E0
+	short number;			//0x00   //Scr_Notify + 0x04   movsx edi, word ptr [rdi]
+	short type;				//0x02
+	char _pad0[0x88];		//0x04
+	float angles[3];		//0x8C
+	char _pad1[0xA0];		//0x98
+	float origin[3];		//0x138
+	char _pad2[0x14];		//0x144
+	gclient_s *client;		//0x158   //G_SetModel + 0x23   mov rbx, [r15+158h]
+	char _pad3[0x28];		//0x160
+	short modelIndex;		//0x188   //G_SetModel + 0x82   mov [r15+188h], ax
+	char _pad4[0x0A];		//0x18A
+	int classname;			//0x194   //ScriptEntCmd_Solid + 0x5F   mov eax, [rbx+194h]
+	int script_classname;	//0x198
+	int script_linkName;	//0x19C
+	int target;				//0x1A0
+	int targetname;			//0x1A4
+	int u1;					//0x1A8
+	int spawnflags;			//0x1AC
 	//...
-	int health;			//0x1D0
-	int maxHealth;		//0x1D4
+	int health;				//0x1D0
+	int maxHealth;			//0x1D4
 	//...
 };
 
@@ -138,7 +166,7 @@ struct lua_State {
 	//...
 };
 
-struct Material {
+struct Material { // 0x338
 	const char *name;
 	//...
 };
@@ -156,7 +184,7 @@ struct LUIElement {
 	float y1;			//0x34
 	float x2;			//0x38
 	float y2;			//0x3C
-	char pad1[0x40];	//0x40
+	char _pad0[0x40];	//0x40
 	Material *material;	//0x80
 	Font_s *font;		//0x88
 	//...
@@ -176,6 +204,23 @@ struct trace_t {
 
 struct UiContext {
 	//...
+};
+
+union VariableUnion { //PDB, not tested
+	int intValue;
+	int uintValue;
+	float floatValue;
+	int stringValue;
+	void *vectorValue;
+	void *codePosValue;
+	int pointerValue;
+	void *stackValue;
+	int entityOffset;
+};
+
+struct VariableValue { //PDB, not tested
+	VariableUnion u;
+	int type;
 };
 
 

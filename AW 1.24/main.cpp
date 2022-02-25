@@ -85,9 +85,9 @@ void DetectGame() {
 
 		//memcpy((void *)0x000000000090DFFE, "\x90\x90", 2); //enable FPS
 
-		//restore CL_Disconnect
-		//memcpy((void *)0xB6F7F0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x83\xEC\x68", 17);
-		//Hooks::CL_Disconnect_Stub = (Hooks::CL_Disconnect_t)DetourFunction(0xB6F7F0, (void *)Hooks::CL_Disconnect_Hook, 17);
+		//restore ClientThink_real
+		memcpy((void *)0x0000000000704320, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xE4\xE0\xFF\xFF\xFF", 20);
+		Hooks::ClientThink_real_Stub = (Hooks::ClientThink_real_t)DetourFunction(0x0000000000704320, (void *)Hooks::ClientThink_real_Hook, 20);
 
 		//restore LUI_CoD_Render
 		memcpy((void *)0x00000000004F01B0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x54\x53\x41\x89\xF6\x41\x89\xFF", 17);
@@ -97,18 +97,29 @@ void DetectGame() {
 		memcpy((void *)0x00000000004D6EC0, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\xD8\x00\x00\x00", 20);
 		Hooks::LUIElement_Render_Stub = (Hooks::LUIElement_Render_t)DetourFunction(0x00000000004D6EC0, (void *)Hooks::LUIElement_Render_Hook, 20);
 
+		//restore VM_Notify
+		memcpy((void *)0x0000000000859090, "\x55\x48\x89\xE5\x41\x57\x41\x56\x41\x55\x41\x54\x53\x48\x81\xEC\x88\x00\x00\x00", 20);
+		Hooks::VM_Notify_Stub = (Hooks::VM_Notify_t)DetourFunction(0x0000000000859090, (void *)Hooks::VM_Notify_Hook, 20);
+
 		WriteJump(0x00000000004F0FD0, (uint64_t)Hooks::LUI_Interface_DebugPrint_Hook);
 		WriteJump(0x0000000000A18320, (uint64_t)Hooks::R_EndFrame_Hook);
 		WriteJump(0x0000000000766450, (uint64_t)Hooks::Scr_Notify_Hook);
+		WriteJump(0x00000000007F6CC0, (uint64_t)Hooks::SV_Cmd_TokenizeString_Hook);
 
-		//uint64_t assetHeader = DB_FindXAssetHeader(XAssetType::ASSET_TYPE_MAP_ENTS, "maps/mp/mp_prison.d3dbsp", 0);
-		//uartprintf("DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
+		//uint64_t assetHeader = DB_FindXAssetHeader(/*XAssetType::ASSET_TYPE_MAP_ENTS*/(XAssetType)0x1C, "maps/mp/mp_venus.d3dbsp", 0);
+		//uartprintf("[AW 1.24] DB_FindXAssetHeader returned: 0x%llX\n", assetHeader);
 
 		//PrintLoadedZones();
+		//uartprintf("[AW 1.24] %s", Host::Entity::GetModelNameFromEntity(0));
 
-		float pos[3];
-		G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
-		Host::Entity::SpawnScriptModel("prop_flag_neutral", pos);
+		//float pos[3];
+		//G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, 0, pos);
+		//Host::Entity::SpawnScriptModel("dyn_ven_banners_tube_01_intct", pos);
+
+		//GScr_MapRestart();
+
+		const char *targetname = SL_ConvertToString((scr_string_t)50428);
+		uartprintf("[AW 1.24] targetname: %s\n", targetname);
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");

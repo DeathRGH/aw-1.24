@@ -4,6 +4,9 @@ AngleVectors_t AngleVectors;
 
 Cbuf_AddText_t Cbuf_AddText;
 
+Cmd_RegisterNotification_t Cmd_RegisterNotification;
+Cmd_TokenizeStringKernel_t Cmd_TokenizeStringKernel;
+
 DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
 G_DObjGetWorldTagPos_t G_DObjGetWorldTagPos;
@@ -14,10 +17,13 @@ G_GetPlayerViewOrigin_t G_GetPlayerViewOrigin;
 G_LocalizedStringIndex_t G_LocalizedStringIndex;
 G_LocationalTrace_t G_LocationalTrace;
 G_MaterialIndex_t G_MaterialIndex;
+G_ModelName_t G_ModelName;
 G_SetAngle_t G_SetAngle;
 G_SetModel_t G_SetModel;
 G_SetOrigin_t G_SetOrigin;
 G_Spawn_t G_Spawn;
+
+GScr_MapRestart_t GScr_MapRestart;
 
 HudElem_Alloc_t HudElem_Alloc;
 HudElem_DestroyAll_t HudElem_DestroyAll;
@@ -52,6 +58,7 @@ Scr_AddEntity_t Scr_AddEntity;
 Scr_AddInt_t Scr_AddInt;
 Scr_AddString_t Scr_AddString;
 Scr_AddVector_t Scr_AddVector;
+Scr_GetSelf_t Scr_GetSelf;
 Scr_MagicBullet_t Scr_MagicBullet;
 Scr_NotifyNum_t Scr_NotifyNum;
 

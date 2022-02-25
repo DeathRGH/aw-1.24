@@ -13,8 +13,11 @@
 
 #define gentity_t 0x00000000064293D0
 #define gentity_size 0x2E0
+#define gclient_t 0x000000000659C180
+#define gclient_size 0x5780
 #define lua_state (lua_State *)(*(uint64_t *)0x00000000025A6920)
 #define UI_Context (UiContext *)0x000000000B80C540
+#define scr_const 0x00000000066B4500
 
 //00000000026EE8A0 weapondef ( & 0x3FF)
 
@@ -23,6 +26,35 @@
 //0x000000000659C180 //gclient //0x5780
 //0x5370 - mflag
 
+#define SV_CMD_R2_DOWN			"n 1"
+#define SV_CMD_R2_UP			"n 2"
+#define SV_CMD_R1_DOWN			"n 5"
+#define SV_CMD_R1_UP			"n 6"
+#define SV_CMD_L1_DOWN			"n 7"
+#define SV_CMD_L1_UP			"n 8"
+#define SV_CMD_L3_DOWN			"n 9"
+#define SV_CMD_L3_UP			"n 10"
+#define SV_CMD_SQUARE_DOWN		"n 11"
+#define SV_CMD_SQUARE_UP		"n 12"
+#define SV_CMD_L2_DOWN			"n 13"
+#define SV_CMD_L2_UP			"n 14"
+#define SV_CMD_DPAD_UP_DOWN		"n 15"
+#define SV_CMD_DPAD_UP_UP		"n 16"
+#define SV_CMD_DPAD_DOWN_DOWN	"n 17"
+#define SV_CMD_DPAD_DOWN_UP		"n 18"
+#define SV_CMD_DPAD_LEFT_DOWN	"n 19"
+#define SV_CMD_DPAD_LEFT_UP		"n 20"
+#define SV_CMD_DPAD_RIGHT_DOWN	"n 21"
+#define SV_CMD_DPAD_RIGHT_UP	"n 22"
+#define SV_CMD_CIRCLE_DOWN		"n 23"
+#define SV_CMD_CIRCLE_UP		"n 24"
+#define SV_CMD_X_DOWN			"n 25"
+#define SV_CMD_X_UP				"n 26"
+#define SV_CMD_R3_DOWN			"n 27"
+#define SV_CMD_R3_UP			"n 28"
+#define SV_CMD_OPTIONS			"n 39"
+#define SV_CMD_TRIANGLE			"n 40"
+#define SV_CMD_TOUCHPAD			"n 42"
 
 //dvars
 #define dvar_s_current 0x10
