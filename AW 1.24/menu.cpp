@@ -286,7 +286,7 @@ void MonitorButtons() {
 				continue;
 			}
 
-			if (padData.buttons & SCE_PAD_BUTTON_LEFT && padData.analogButtons.l2 < 100) {
+			if (padData.buttons & SCE_PAD_BUTTON_DOWN) {
 				if (Options.menuScroll < Options.menuMaxScroll)
 					Options.menuScroll++;
 				if (Options.menuScroll == Options.menuMaxScroll)
@@ -338,7 +338,7 @@ void MonitorButtons() {
 				AddFloat_List(Options.menuScroll);
 			}
 
-			if (padData.buttons & SCE_PAD_BUTTON_LEFT) {
+			if (padData.buttons & SCE_PAD_BUTTON_LEFT && padData.analogButtons.l2 < 100) {
 				SubInt_List(Options.menuScroll);
 				SubFloat_List(Options.menuScroll);
 			}
@@ -349,7 +349,7 @@ void MonitorButtons() {
 			continue;
 		}
 
-		if (padData.buttons & SCE_PAD_BUTTON_DOWN && padData.analogButtons.l2 < 100) {
+		if (padData.buttons & SCE_PAD_BUTTON_DOWN) {
 			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
@@ -400,7 +400,7 @@ void MonitorButtons() {
 			AddFloat_List(Options.menuScroll);
 		}
 
-		if (padData.buttons & SCE_PAD_BUTTON_LEFT) {
+		if (padData.buttons & SCE_PAD_BUTTON_LEFT && padData.analogButtons.l2 < 100) {
 			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
