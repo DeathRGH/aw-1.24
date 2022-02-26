@@ -7,6 +7,8 @@ NAMESPACE(Host)
 
 void FireMagicBullet(short entNum, const char *projectile);
 
+int BulletTrace(float *start, float *end, unsigned short *entityId);
+
 NAMESPACE(Lobby)
 
 void Godmode(bool state);
@@ -29,6 +31,17 @@ NAMESPACE(Menu)
 
 #define MAX_MENU_CLIENTS 18
 extern int lastClientButton[MAX_MENU_CLIENTS];
+
+END
+NAMESPACE(Forge)
+
+extern gentity_s *clientCurrentEntity[MAX_MENU_CLIENTS];
+
+void MoveEntity(gentity_s *player, gentity_s *ent);
+void DeleteEntity(gentity_s *player);
+void PickupEntity(gentity_s *player);
+
+void MoveForgeEntities();
 
 END
 END
