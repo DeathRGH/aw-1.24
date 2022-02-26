@@ -1,5 +1,6 @@
 #include "host.h"
 
+#include "cache.h"
 #include "functions.h"
 #include "imports.h"
 #include "utility.h"
@@ -230,6 +231,10 @@ void PickupEntity(gentity_s *player) {
 void MoveForgeEntities() {
 	uartprintf("[AW 1.24] MoveForgeEntities() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
+		if (!Cache::Game.inGame) {
+			Sleep(10);
+			continue;
+		}
 		for (int i = 0; i < MAX_MENU_CLIENTS; i++) {
 			if (clientCurrentEntity[i] != 0) {
 				MoveEntity(Entity::GetEntityPtr(i), clientCurrentEntity[i]);

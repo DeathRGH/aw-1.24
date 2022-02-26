@@ -420,6 +420,8 @@ void MonitorButtons() {
 void LoopSettings() {
 	uartprintf("[AW 1.24] LoopSettings() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
+		Cache::CacheAll();
+
 		Host::Lobby::Godmode(Options.debug_godmode.state);
 		Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
 

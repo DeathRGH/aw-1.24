@@ -69,6 +69,8 @@
 
 #define cg_fov 0x0000000000F2FF08
 
+#define cl_ingame 0x00000000027AB638
+
 #define FONT_DEFAULT 0x00 //vHandler->defs.addr_Font_Default
 
 #define MENU_FONT FONT_DEFAULT

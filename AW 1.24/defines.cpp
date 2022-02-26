@@ -198,7 +198,7 @@ void PreventCrash() {
 }
 
 bool InGame() {
-	return true;//!gameEnded && *(char *)vHandler->addresses.addr_inGame == 0 && *(uint64 *)vHandler->structDefs.addr_cg != 0 && *(uint64 *)vHandler->structDefs.addr_cgs != 0 && *(uint64 *)vHandler->structDefs.addr_centity != 0 && *(uint64 *)vHandler->structDefs.addr_clientActive != 0;
+	return *(bool *)(*(uint64_t *)cl_ingame + dvar_s_current);
 }
 
 const char *GetRawGametype() {
