@@ -171,14 +171,10 @@ void VM_Notify_Hook(unsigned int notifyListOwnerId, scr_string_t stringValue, Va
 			char temp[100];
 			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_UP\"", entityNum);
 			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
-		}
-		if (!strcmp(notifyString, "DPAD_DOWN")) {
-			char temp[100];
-			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_DOWN\"", entityNum);
-			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
 
-			float pos[3];
-			G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, entityNum, pos);
+			//float pos[3];
+			//G_GetOrigin(LocalClientNum_t::LOCAL_CLIENT_0, entityNum, pos);
+			float pos[3] = { 0.0f, 0.0f, 1000000.0f };
 			gentity_s *ent = Host::Entity::SpawnScriptModel("com_plasticcase_green_big_us_dirt", pos);
 			//float newAngles[3] = { 0.0f, 0.0f, 180.0f };
 			//G_SetAngle(ent, newAngles);
@@ -186,6 +182,17 @@ void VM_Notify_Hook(unsigned int notifyListOwnerId, scr_string_t stringValue, Va
 			gentity_s *collision = Host::Entity::FindCollision("pf13_auto1");
 			Host::Entity::CloneBrushModelToScriptModel(ent, collision);
 			Host::Entity::Solid(ent);
+			Host::Forge::clientCurrentEntity[entityNum] = ent;
+		}
+		if (!strcmp(notifyString, "DPAD_DOWN")) {
+			char temp[100];
+			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_DOWN\"", entityNum);
+			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+
+			if (Host::Forge::clientCurrentEntity[entityNum] != 0)
+				Host::Forge::clientCurrentEntity[entityNum] = 0;
+			else
+				Host::Forge::PickupEntity(Host::Entity::GetEntityPtr(entityNum));
 		}
 		if (!strcmp(notifyString, "DPAD_LEFT")) {
 			char temp[100];
@@ -196,6 +203,13 @@ void VM_Notify_Hook(unsigned int notifyListOwnerId, scr_string_t stringValue, Va
 			char temp[100];
 			snprintf(temp, sizeof(temp), "f \"^3client: %i hit DPAD_RIGHT\"", entityNum);
 			SV_GameSendServerCommand(-1, svscmd_type::SV_CMD_RELIABLE, temp);
+
+			if (Host::Forge::clientCurrentEntity[entityNum] != 0)
+				G_FreeEntity(Host::Forge::clientCurrentEntity[entityNum]);
+			else
+				Host::Forge::DeleteEntity(Host::Entity::GetEntityPtr(entityNum));
+
+			Host::Forge::clientCurrentEntity[entityNum] = 0;
 		}
 		if (!strcmp(notifyString, "BTN_R1")) {
 			char temp[100];

@@ -278,7 +278,7 @@ void MonitorButtons() {
 			previousButton = padData.buttons;
 			ticks = 0;
 
-			if ((padData.buttons & SCE_PAD_BUTTON_DOWN) && (padData.analogButtons.l2 > 100))
+			if ((padData.buttons & SCE_PAD_BUTTON_LEFT) && (padData.analogButtons.l2 > 100))
 				Options.menuOpen = !Options.menuOpen;
 
 			if (!Options.menuOpen) {
@@ -286,7 +286,7 @@ void MonitorButtons() {
 				continue;
 			}
 
-			if (padData.buttons & SCE_PAD_BUTTON_DOWN && padData.analogButtons.l2 < 100) {
+			if (padData.buttons & SCE_PAD_BUTTON_DOWN) {
 				if (Options.menuScroll < Options.menuMaxScroll)
 					Options.menuScroll++;
 				if (Options.menuScroll == Options.menuMaxScroll)
@@ -338,7 +338,7 @@ void MonitorButtons() {
 				AddFloat_List(Options.menuScroll);
 			}
 
-			if (padData.buttons & SCE_PAD_BUTTON_LEFT) {
+			if (padData.buttons & SCE_PAD_BUTTON_LEFT && padData.analogButtons.l2 < 100) {
 				SubInt_List(Options.menuScroll);
 				SubFloat_List(Options.menuScroll);
 			}
@@ -349,7 +349,7 @@ void MonitorButtons() {
 			continue;
 		}
 
-		if (padData.buttons & SCE_PAD_BUTTON_DOWN && padData.analogButtons.l2 < 100) {
+		if (padData.buttons & SCE_PAD_BUTTON_DOWN) {
 			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
@@ -400,7 +400,7 @@ void MonitorButtons() {
 			AddFloat_List(Options.menuScroll);
 		}
 
-		if (padData.buttons & SCE_PAD_BUTTON_LEFT) {
+		if (padData.buttons & SCE_PAD_BUTTON_LEFT && padData.analogButtons.l2 < 100) {
 			if (ticks < Options.menuScrollerInitialDelay.current) {
 				ticks++;
 				Sleep(10);
@@ -420,9 +420,12 @@ void MonitorButtons() {
 void LoopSettings() {
 	uartprintf("[AW 1.24] LoopSettings() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
+		Cache::CacheAll();
+
 		Host::Lobby::Godmode(Options.debug_godmode.state);
 		Host::Lobby::InfiniteAmmo(Options.debug_infAmmo.state);
 
+		*(float *)(*(uint64_t *)cg_fov + dvar_s_current) = 90.0f;
 
 		*(char *)0x00000000007D6F90 = Options.menuOpen ? 0xC3 : 0x55; //GPad_UpdateDigitals
 		Sleep(10);

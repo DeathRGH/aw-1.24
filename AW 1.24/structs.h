@@ -191,7 +191,7 @@ struct LUIElement {
 };
 
 struct playerState_s {
-	//...
+	gclient_s client;
 };
 
 struct RootUserData {
@@ -199,6 +199,7 @@ struct RootUserData {
 };
 
 struct trace_t {
+	char _pad0[0x200];
 	//...
 };
 

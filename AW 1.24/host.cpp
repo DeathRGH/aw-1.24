@@ -1,5 +1,6 @@
 #include "host.h"
 
+#include "cache.h"
 #include "functions.h"
 #include "imports.h"
 #include "utility.h"
@@ -27,6 +28,23 @@ void FireMagicBullet(short entNum, const char *projectile) {
 	Scr_SetNumParam(3);
 
 	Scr_MagicBullet();
+}
+
+int BulletTrace(float *start, float *end, unsigned short *entityId) {
+	char trace[0x200];//trace_t *trace;
+	G_LocationalTrace(trace, start, end, 0, 0x280E831, 0);
+
+	unsigned short id = Trace_GetEntityHitId(trace);
+	if (entityId) {
+		if (id < 0x7FE)
+			*entityId = id;
+		else {
+			*entityId = 0;
+			return 1;
+		}
+	}
+
+	return 0;
 }
 
 NAMESPACE(Lobby)
@@ -131,6 +149,102 @@ END
 NAMESPACE(Menu)
 
 int lastClientButton[MAX_MENU_CLIENTS];
+
+END
+NAMESPACE(Forge)
+
+gentity_s *clientCurrentEntity[MAX_MENU_CLIENTS];
+
+void MoveEntity(gentity_s *player, gentity_s *ent) {
+	float playerAngles[3];
+	playerAngles[0] = player->angles[0];
+	playerAngles[1] = player->angles[1];
+	playerAngles[2] = player->angles[2];
+
+	float forward[3];
+	AngleVectors(playerAngles, forward, 0, 0);
+
+	float viewOrigin[3];
+	G_GetPlayerViewOrigin((playerState_s *)player->client, viewOrigin);
+
+	float origin[3];
+	origin[0] = viewOrigin[0] + forward[0] * 100;
+	origin[1] = viewOrigin[1] + forward[1] * 100;
+	origin[2] = viewOrigin[2] + forward[2] * 100;
+	G_SetOrigin(ent, origin);
+
+	playerAngles[0] = 0;
+	playerAngles[1] += 90;
+	G_SetAngle(ent, playerAngles);
+
+	SV_LinkEntity(ent);
+}
+
+void DeleteEntity(gentity_s *player) {
+	float playerAngles[3];
+	playerAngles[0] = player->angles[0];
+	playerAngles[1] = player->angles[1];
+	playerAngles[2] = player->angles[2];
+
+	float forward[3];
+	AngleVectors(playerAngles, forward, 0, 0);
+
+	float start[3];
+	G_DObjGetWorldTagPos(player, SL_GetString("tag_eye", 0), start);
+
+	float end[3];
+	end[0] = forward[0] * 999999999;
+	end[1] = forward[1] * 999999999;
+	end[2] = forward[2] * 999999999;
+
+	unsigned short entityId = 0;
+	int r = BulletTrace(start, end, &entityId);
+	if (!r) {
+		gentity_s *ent = Entity::GetEntityPtr(entityId);
+		G_FreeEntity(ent);
+	}
+}
+
+void PickupEntity(gentity_s *player) {
+	float playerAngles[3];
+	playerAngles[0] = player->angles[0];
+	playerAngles[1] = player->angles[1];
+	playerAngles[2] = player->angles[2];
+
+	float forward[3];
+	AngleVectors(playerAngles, forward, 0, 0);
+
+	float start[3];
+	G_DObjGetWorldTagPos(player, SL_GetString("tag_eye", 0), start);
+
+	float end[3];
+	end[0] = forward[0] * 999999999;
+	end[1] = forward[1] * 999999999;
+	end[2] = forward[2] * 999999999;
+
+	unsigned short entityId = 0;
+	int r = BulletTrace(start, end, &entityId);
+	if (!r)
+		clientCurrentEntity[player->number] = Entity::GetEntityPtr(entityId);
+}
+
+void MoveForgeEntities() {
+	uartprintf("[AW 1.24] MoveForgeEntities() -> THREAD STARTED!\n");
+	while (ShouldRun()) {
+		if (!Cache::Game.inGame) {
+			Sleep(10);
+			continue;
+		}
+		for (int i = 0; i < MAX_MENU_CLIENTS; i++) {
+			if (clientCurrentEntity[i] != 0) {
+				MoveEntity(Entity::GetEntityPtr(i), clientCurrentEntity[i]);
+			}
+		}
+		Sleep(10);
+	}
+
+	uartprintf("[AW 1.24] MoveForgeEntities() -> THREAD ENDED!\n");
+}
 
 END
 END

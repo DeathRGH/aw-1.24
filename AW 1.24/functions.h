@@ -19,7 +19,7 @@ typedef void(*G_GetAngles_t)(LocalClientNum_t localClientNum, short entIndex, fl
 typedef void(*G_GetOrigin_t)(LocalClientNum_t localClientNum, short entIndex, float *outPosition);
 typedef void(*G_GetPlayerViewOrigin_t)(const playerState_s *, float *);
 typedef uint64_t(*G_LocalizedStringIndex_t)(const char *text);
-typedef void(*G_LocationalTrace_t)(trace_t *results, const float *start, const float *end, short passEntityNum, int contentmask, unsigned char *priorityMap);
+typedef void(*G_LocationalTrace_t)(/*trace_t **/void *results, const float *start, const float *end, short passEntityNum, int contentmask, unsigned char *priorityMap);
 typedef uint64_t(*G_MaterialIndex_t)(const char *material);
 typedef unsigned int(*G_ModelName_t)(int index);
 typedef void(*G_SetAngle_t)(gentity_s *, const float *);
@@ -76,7 +76,7 @@ typedef void(*SV_LinkEntity_t)(gentity_s *);
 typedef void(*SV_SetBrushModel_t)(gentity_s *);
 typedef void(*SV_UnlinkEntity_t)(gentity_s *);
 
-typedef unsigned short(*Trace_GetEntityHitId_t)(const trace_t *trace);
+typedef unsigned short(*Trace_GetEntityHitId_t)(/*const trace_t **/void *trace);
 
 //
 

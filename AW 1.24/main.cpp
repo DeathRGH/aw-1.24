@@ -20,7 +20,6 @@ static int step;
 void RgbThread() {
 	uartprintf("[AW 1.24] RgbThread() -> THREAD STARTED!\n");
 	while (ShouldRun()) {
-
 		float inc = 0.005f;//Menu::options.rgbFadingSpeed.current;
 
 		if (step == 0)
@@ -67,6 +66,8 @@ void DetectGame() {
 		scePthreadCreate(&thread2, NULL, (void *)Menu::MonitorButtons, NULL, "monitorButtons_thread");
 		ScePthread thread3;
 		scePthreadCreate(&thread3, NULL, (void *)Menu::LoopSettings, NULL, "loopSettings_thread");
+		ScePthread thread4;
+		scePthreadCreate(&thread4, NULL, (void *)Host::Forge::MoveForgeEntities, NULL, "forgeMoveEntities_thread");
 
 		char userName[20];
 		sceUserServiceGetUserName(userId, userName, 20);
@@ -117,9 +118,6 @@ void DetectGame() {
 		//Host::Entity::SpawnScriptModel("dyn_ven_banners_tube_01_intct", pos);
 
 		//GScr_MapRestart();
-
-		const char *targetname = SL_ConvertToString((scr_string_t)50428);
-		uartprintf("[AW 1.24] targetname: %s\n", targetname);
 	}
 	else {
 		sceSysUtilSendSystemNotificationWithText(222, "Welcome to AW 1.24");

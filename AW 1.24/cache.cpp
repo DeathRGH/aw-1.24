@@ -11,10 +11,10 @@ Game_s Game;
 
 void CacheGame() {
 	Game.inGame = InGame();
-	Game.gametype = Game.inGame ? GetRawGametype() : "Unknown";
-	Game.mapname = Game.inGame ? GetRawMapname() : "Unknown";
-	Game.hostname = Game.inGame ? cgs.hostname : "Unknown Host";
-	Game.inZombies = !strcmp(Game.gametype, "zclassic"); //check this !!!
+	Game.gametype = /*Game.inGame ? GetRawGametype() : */"Unknown";
+	Game.mapname = /*Game.inGame ? GetRawMapname() : */"Unknown";
+	Game.hostname = /*Game.inGame ? cgs.hostname : */"Unknown Host";
+	Game.inZombies = false;//!strcmp(Game.gametype, "zclassic"); //check this !!!
 }
 
 void CacheAll() {
